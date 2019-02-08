@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/book_car_frame"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/book_car_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookCarFragment">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/car_info_label"
@@ -75,6 +74,7 @@
                 android:id="@+id/rent_info_label"
                 style="@style/Label_header"
                 android:text="Rent Information"
+                android:layout_margin="@dimen/text_margin"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view" />
@@ -120,7 +120,7 @@
                 android:paddingTop="16dp"
                 android:tooltipText="Start date"
                 app:layout_constraintLeft_toRightOf="@id/renting_period"
-                app:layout_constraintTop_toBottomOf="@id/fixed_deposit_label"/>
+                app:layout_constraintTop_toBottomOf="@id/fixed_deposit_label" />
 
             <TextView
                 android:id="@+id/to_label"
@@ -152,6 +152,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/renting_period">
+
                 <LinearLayout
 
                     android:layout_width="match_parent"
@@ -195,27 +196,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="estimated price " />
-
-
                 </LinearLayout>
-
             </LinearLayout>
-
-            <Button
-                android:id="@+id/next_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="Next"/>
         </android.support.constraint.ConstraintLayout>
-
-
-
-    </android.support.design.widget.CoordinatorLayout>
-   </FrameLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Next"
+        android:textSize="22sp"
+        android:layout_gravity="bottom" />
+</FrameLayout>
 
 
