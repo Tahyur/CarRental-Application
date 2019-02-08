@@ -1,5 +1,6 @@
 package com.example.tayor.karz;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,7 +13,8 @@ import android.widget.Toast;
 
 import com.example.tayor.karz.Model.Car;
 
-public class MainActivity extends AppCompatActivity implements CarFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        CarFragment.OnListFragmentInteractionListener,BookCarFragment.OnFragmentInteractionListener,PaymentFragment.OnPaymentFragmentInteractionListener {
 
     private TextView mTextMessage;
     private CardView cardView;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements CarFragment.OnLis
                 case R.id.book_car:
                     mTextMessage.setText(R.string.book_car);
                     removeFragment();
+                    bookCarFragment();
                     return true;
                 case R.id.history:
                     mTextMessage.setText(R.string.history);
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements CarFragment.OnLis
     void removeFragment(){
         if(getSupportFragmentManager().findFragmentByTag("carfrag") != null)
              getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("carfrag")).commit();
+        if(getSupportFragmentManager().findFragmentByTag("bookcar") != null)
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("bookcar")).commit();
     }
 
     void showFragment(){
@@ -61,17 +66,24 @@ public class MainActivity extends AppCompatActivity implements CarFragment.OnLis
 
     }
 
+    void bookCarFragment(){
+        BookCarFragment bookCarFragment = new BookCarFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame,bookCarFragment,"bookcar").commit();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       // frameLayout = findViewById(R.id.frame2);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         cardView = findViewById(R.id.card);
-        showFragment();
+        //showFragment();
 
 
     }
@@ -79,5 +91,16 @@ public class MainActivity extends AppCompatActivity implements CarFragment.OnLis
     @Override
     public void onListFragmentInteraction(Car car) {
         Toast.makeText(this, car.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+        PaymentFragment paymentFragment = new PaymentFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame,paymentFragment,"payment").commit();
+    }
+
+    @Override
+    public void onPaymentFragmentInteraction(Uri uri) {
+
     }
 }
