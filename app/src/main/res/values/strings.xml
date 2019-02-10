@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">car_rerntal</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="string_navigaton_car">Car</string>
+    <string name="string_navigaton_rent">Rent</string>
+    <string name="string_navigaton_return_car">Return Car</string>
+    <string name="title_car">Car</string>
+    <string name="string_rent">Rent</string>
+    <string name="return_car">Return Car</string>
+    <string name="title_customer">Customer</string>
+</resources>
