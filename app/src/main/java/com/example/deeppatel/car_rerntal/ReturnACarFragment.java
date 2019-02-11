@@ -16,6 +16,7 @@ public class ReturnACarFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.return_a_car_fragment_layout, container, false);
 
+
         //Set the bottom navigation to home
         ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_return_car);
 
@@ -26,4 +27,15 @@ public class ReturnACarFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Set the bottom navigation to home
+        ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_return_car);
+
+        //Set the actionbar title to home
+        ((Home) getActivity()).setActionBarTitle(getText(R.string.return_car).toString());
+
+    }
 }

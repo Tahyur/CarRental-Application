@@ -16,6 +16,7 @@ public class RentACarFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.rent_a_car_fragment_layout, container, false);
 
+
         //Set the bottom navigation to home
         ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_rent);
 
@@ -26,4 +27,15 @@ public class RentACarFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Set the bottom navigation to home
+        ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_rent);
+
+        //Set the actionbar title to home
+        ((Home) getActivity()).setActionBarTitle(getText(R.string.string_rent).toString());
+
+    }
 }

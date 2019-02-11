@@ -14,7 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Home extends AppCompatActivity {
@@ -36,31 +39,36 @@ public class Home extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 
-                    addFragment(item.getItemId());
+                    replaceFragment(item.getItemId());
+//                    whichFragmentIsVisible();
 
                     return true;
 
                 case R.id.navigation_customer:
 
-                    addFragment(item.getItemId());
+                    replaceFragment(item.getItemId());
+//                    whichFragmentIsVisible();
 
                     return true;
 
                 case R.id.navigation_car:
 
-                    addFragment(item.getItemId());
+                    replaceFragment(item.getItemId());
+//                    whichFragmentIsVisible();
 
                     return true;
 
                 case R.id.navigation_rent:
 
-                    addFragment(item.getItemId());
+                    replaceFragment(item.getItemId());
+//                    whichFragmentIsVisible();
 
                     return true;
 
                 case R.id.navigation_return_car:
 
-                    addFragment(item.getItemId());
+                    replaceFragment(item.getItemId());
+//                    whichFragmentIsVisible();
 
                     return true;
 
@@ -68,6 +76,7 @@ public class Home extends AppCompatActivity {
             return false;
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +92,62 @@ public class Home extends AppCompatActivity {
         //Initialize the stack
         fragmentStack = new Stack();
         //Add HomeFragment object to it
-        addFragment(R.id.navigation_home);
+        replaceFragment(R.id.navigation_home);
 
     }
 
 
     //Custom methods
 
+//    public void whichFragmentIsVisible(){
+//
+//        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+//
+//        if(fragment != null){
+//
+//            if(fragment instanceof HomeFragment && fragment.isVisible()){
+//
+//                Toast.makeText(this, "HOME", Toast.LENGTH_SHORT).show();
+//
+////                setBottomNavigationItemChecked(R.id.navigation_home);
+////                setActionBarTitle(getText(R.string.title_home).toString());
+//
+//            }else if(fragment instanceof CustomerFragment && fragment.isVisible()){
+//
+//                Toast.makeText(this, "CUST", Toast.LENGTH_SHORT).show();
+//
+////                setBottomNavigationItemChecked(R.id.navigation_customer);
+////                setActionBarTitle(getText(R.string.title_customer).toString());
+//
+//            }else if(fragment instanceof CarFragment && fragment.isVisible()){
+//
+//                Toast.makeText(this, "CAR", Toast.LENGTH_SHORT).show();
+//
+////                setBottomNavigationItemChecked(R.id.navigation_car);
+////                setActionBarTitle(getText(R.string.title_car).toString());
+//
+//            }else if(fragment instanceof RentACarFragment && fragment.isVisible()){
+//
+//                Toast.makeText(this, "RENT", Toast.LENGTH_SHORT).show();
+//
+////                setBottomNavigationItemChecked(R.id.navigation_rent);
+////                setActionBarTitle(getText(R.string.string_rent).toString());
+//
+//            }else if(fragment instanceof ReturnACarFragment && fragment.isVisible()){
+//
+//                Toast.makeText(this, "RETU", Toast.LENGTH_SHORT).show();
+//
+////                setBottomNavigationItemChecked(R.id.navigation_return_car);
+////                setActionBarTitle(getText(R.string.return_car).toString());
+//
+//            }else{
+//                Toast.makeText(this, "NULL", Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }
+//
+//
+//    }
 
     public void setActionBarTitle(String title){
 
@@ -134,7 +192,7 @@ public class Home extends AppCompatActivity {
 
     }
 
-    public  void addFragment(int fragmentId){
+    public  void replaceFragment(int fragmentId){
 
         FragmentTransaction fragmentTransaction;
 
@@ -155,10 +213,10 @@ public class Home extends AppCompatActivity {
                 //Initialize the fragment
                 homeFragment = new HomeFragment();
                 //Add the fragment to screen
-                fragmentTransaction.add(R.id.fragment_container, homeFragment);
-                //Add the fragment to custom fragment stack
-                fragmentStack.push(homeFragment);
+                fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+                //fragmentTransaction.addToBackStack("Added Home");
                 fragmentTransaction.commit();
+                //whichFragmentIsVisible();
 
                 break;
 
@@ -169,9 +227,10 @@ public class Home extends AppCompatActivity {
                 //Initialize the fragment
                 customerFragment = new CustomerFragment();
                 //Add the fragment to screen
-                fragmentTransaction.add(R.id.fragment_container, customerFragment);
+                fragmentTransaction.replace(R.id.fragment_container, customerFragment);
+                //whichFragmentIsVisible();
                 //Add the fragment to custom fragment stack
-                fragmentStack.push(customerFragment);
+                //fragmentTransaction.addToBackStack("Added Cust");
                 fragmentTransaction.commit();
 
                 break;
@@ -183,9 +242,10 @@ public class Home extends AppCompatActivity {
                 //Initialize the fragment
                 carFragment = new CarFragment();
                 //Add the fragment to screen
-                fragmentTransaction.add(R.id.fragment_container, carFragment);
+                fragmentTransaction.replace(R.id.fragment_container, carFragment);
+                //whichFragmentIsVisible();
                 //Add the fragment to custom fragment stack
-                fragmentStack.push(carFragment);
+                //fragmentTransaction.addToBackStack("Added Car");
                 fragmentTransaction.commit();
 
                 break;
@@ -197,9 +257,10 @@ public class Home extends AppCompatActivity {
                 //Initialize the fragment
                 rentACarFragment = new RentACarFragment();
                 //Add the fragment to screen
-                fragmentTransaction.add(R.id.fragment_container, rentACarFragment);
+                fragmentTransaction.replace(R.id.fragment_container, rentACarFragment);
+                //whichFragmentIsVisible();
                 //Add the fragment to custom fragment stack
-                fragmentStack.push(rentACarFragment);
+                //fragmentTransaction.addToBackStack("Added rent");
                 fragmentTransaction.commit();
 
                 break;
@@ -211,9 +272,10 @@ public class Home extends AppCompatActivity {
                 //Initialize the fragment
                 returnACarFragment = new ReturnACarFragment();
                 //Add the fragment to screen
-                fragmentTransaction.add(R.id.fragment_container, returnACarFragment);
+                fragmentTransaction.replace(R.id.fragment_container, returnACarFragment);
+                //whichFragmentIsVisible();
                 //Add the fragment to custom fragment stack
-                fragmentStack.push(returnACarFragment);
+                //fragmentTransaction.addToBackStack("Added return");
                 fragmentTransaction.commit();
 
                 break;

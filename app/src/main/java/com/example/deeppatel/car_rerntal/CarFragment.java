@@ -26,4 +26,16 @@ public class CarFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //Set the bottom navigation to home
+        ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_car);
+
+        //Set the actionbar title to home
+        ((Home) getActivity()).setActionBarTitle(getText(R.string.title_car).toString());
+
+
+    }
 }
