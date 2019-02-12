@@ -1,10 +1,11 @@
 package com.example.deeppatel.car_rerntal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarsEngine {
 
-    private List<Car> carList;
+    private List<Car> carList = new ArrayList<>();
 
     public CarsEngine(List<Car> carList) {
         this.carList = carList;

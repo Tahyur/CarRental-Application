@@ -10,4 +10,19 @@
     <string name="string_rent">Rent</string>
     <string name="return_car">Return Car</string>
     <string name="title_customer">Customer</string>
+    <string name="available_from">Available From</string>
+    <string name="payment">Payment</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="transition_name_circle_ele">transition:CIRCLE</string>
+    <string name="transition_name_car_name">transition:NAME</string>
+    <string name="return_automobile">Return this car</string>
+    <string name="title_activity_payment">Payment</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="debit">DEBIT</string>
+    <string name="credit">CREDIT</string>
+    <string name="cash">CASH</string>
 </resources>

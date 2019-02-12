@@ -1,12 +1,13 @@
 package com.example.deeppatel.car_rerntal;
 
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 
 public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
 
@@ -36,12 +37,14 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
 
         final Car car = carsEngine.getCar(i);
         viewHolder.car_name.setText(car.getCar_name());
-        viewHolder.model_name.setText(car.getCar_model());
-        viewHolder.booked_on.setText(car.getBooked_on());
-        viewHolder.booked_by.setText(car.getBooked_by());
-        viewHolder.available_on.setText(car.getAvailable_on());
 
+        GradientDrawable bgShape = (GradientDrawable) viewHolder.circle_ele.getBackground();
+        bgShape.setColor(car.getColor());
 
+//        viewHolder.model_name.setText(car.getCar_model());
+//        viewHolder.booked_on.setText(car.getBooked_on());
+//        viewHolder.booked_by.setText(car.getBooked_by());
+//        viewHolder.available_on.setText(car.getAvailable_on());
 
     }
 
@@ -52,7 +55,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
 
     public interface OnCarItemClickedListener{
 
-        void onCarItemClicked(int position);
+        void onCarItemClicked(int position, View view);
 
     }
 
@@ -60,6 +63,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
 
 
         TextView car_name, model_name, booked_by, booked_on, available_on;
+        View circle_ele;
         //Gotta declare image for the car once available
         OnCarItemClickedListener onCarItemClickedListener;
 
@@ -68,10 +72,12 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
             super(itemView);
 
             car_name = itemView.findViewById(R.id.car_name);
-            model_name = itemView.findViewById(R.id.model);
-            booked_by = itemView.findViewById(R.id.booked_by);
-            booked_on = itemView.findViewById(R.id.booked_on);
-            available_on = itemView.findViewById(R.id.available_from);
+            circle_ele = itemView.findViewById(R.id.circle_ele);
+//            model_name = itemView.findViewById(R.id.model);
+//            booked_by = itemView.findViewById(R.id.booked_by);
+//            booked_on = itemView.findViewById(R.id.booked_on);
+//            available_on = itemView.findViewById(R.id.available_from);
+            this.onCarItemClickedListener = onCarItemClickedListener;
 
             itemView.setOnClickListener(this);
 
@@ -82,7 +88,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
         @Override
         public void onClick(View v) {
 
-            onCarItemClickedListener.onCarItemClicked(getAdapterPosition());
+            onCarItemClickedListener.onCarItemClicked(getAdapterPosition(), v);
 
         }
     }

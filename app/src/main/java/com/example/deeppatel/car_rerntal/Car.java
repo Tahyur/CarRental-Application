@@ -1,12 +1,18 @@
 package com.example.deeppatel.car_rerntal;
 
-public class Car {
+import android.graphics.Color;
+
+import java.io.Serializable;
+import java.util.Random;
+
+public class Car implements Serializable {
 
     private String car_name;
     private String car_model;
     private String booked_by;
     private String booked_on;
     private String available_on;
+    private int color;
 
     public Car(String car_name, String car_model, String booked_by, String booked_on, String available_on) {
         this.car_name = car_name;
@@ -14,10 +20,26 @@ public class Car {
         this.booked_by = booked_by;
         this.booked_on = booked_on;
         this.available_on = available_on;
+        this.color = getRandColor();
+    }
+
+    public static int getRandColor(){
+
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
     }
 
     public Car() {
 
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public String getCar_name() {
