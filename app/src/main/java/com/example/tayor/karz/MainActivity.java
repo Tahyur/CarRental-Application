@@ -1,5 +1,6 @@
 package com.example.tayor.karz;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +15,11 @@ import android.widget.Toast;
 import com.example.tayor.karz.Model.Car;
 
 
-public class MainActivity extends AppCompatActivity implements
-        CarFragment.OnListFragmentInteractionListener,BookCarFragment.OnFragmentInteractionListener,PaymentFragment.OnPaymentFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements
+        CarFragment.OnListFragmentInteractionListener {
 
     private TextView mTextMessage;
-    private android.support.v7.widget.Toolbar mTopToolbar;
+  //  private android.support.v7.widget.Toolbar mTopToolbar;
     private CardView cardView;
     private FrameLayout frameLayout;
 
@@ -33,11 +34,6 @@ public class MainActivity extends AppCompatActivity implements
                     if(getSupportFragmentManager().findFragmentByTag("carfrag") == null)
                         removeFragment();
                         showFragment();
-                    return true;
-                case R.id.book_car:
-                    mTextMessage.setText(R.string.book_car);
-                    removeFragment();
-                    bookCarFragment();
                     return true;
                 case R.id.history:
                     mTextMessage.setText(R.string.history);
@@ -55,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements
     void removeFragment(){
         if(getSupportFragmentManager().findFragmentByTag("carfrag") != null)
              getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("carfrag")).commit();
-        if(getSupportFragmentManager().findFragmentByTag("bookcar") != null)
-            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("bookcar")).commit();
+//        if(getSupportFragmentManager().findFragmentByTag("bookcar") != null)
+//            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentByTag("bookcar")).commit();
     }
 
     void showFragment(){
@@ -68,26 +64,21 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    void bookCarFragment(){
-        BookCarFragment bookCarFragment = new BookCarFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame,bookCarFragment,"bookcar").commit();
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTopToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mTopToolbar);
+   //     mTopToolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(mTopToolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        mTextMessage = findViewById(R.id.message);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         cardView = findViewById(R.id.card);
-        //showFragment();
+        showFragment();
     }
 
     @Override
@@ -101,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements
         switch(item.getItemId()){
             case R.id.profile:
                 Toast.makeText(this, "profile selected", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -109,16 +102,15 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onListFragmentInteraction(Car car) {
         Toast.makeText(this, car.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this,BookCarActivity.class);
+        intent.putExtra(getString(R.string.s_car_tag),car);
+        startActivity(intent);
     }
 
-    @Override
-    public void onFragmentInteraction() {
-        PaymentFragment paymentFragment = new PaymentFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame,paymentFragment,"payment").commit();
-    }
+//    @Override
+//    public void onFragmentInteraction() {
+//        PaymentFragment paymentFragment = new PaymentFragment();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.frame,paymentFragment,"payment").commit();
+//    }
 
-    @Override
-    public void onPaymentFragmentInteraction(Uri uri) {
-
-    }
 }

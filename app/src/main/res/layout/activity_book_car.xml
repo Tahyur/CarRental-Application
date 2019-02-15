@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/book_car_frame"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BookCarFragment">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:context=".BookCarActivity">
 
             <TextView
                 android:id="@+id/car_info_label"
-                style="@style/Label_header"
+                style="@style/Label_style"
                 android:text="@string/car_information"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -66,13 +59,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="32dp"
-                android:background="@android:color/black"
+                android:background="@color/green"
                 app:layout_constraintTop_toBottomOf="@id/car_mileage_label" />
 
 
             <TextView
                 android:id="@+id/rent_info_label"
-                style="@style/Label_header"
+                style="@style/Label_style"
                 android:text="Rent Information"
                 android:layout_margin="@dimen/text_margin"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -161,19 +154,16 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/Label_style_small_text"
                         android:text="Renting Period : " />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/Label_style_small_text"
                         android:hint="start and end date " />
 
                     <TextView
                         android:id="@+id/hour_estimate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/Label_style_small_text"
                         android:gravity="end"
                         android:hint="(hour estimate) " />
 
@@ -187,27 +177,24 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/Label_style_small_text"
                         android:text="Billing overview : " />
 
                     <TextView
                         android:id="@+id/estimate_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/Label_style_small_text"
                         android:hint="estimated price " />
                 </LinearLayout>
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
     <Button
         android:id="@+id/next_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:text="Next"
-        android:textSize="22sp"
-        android:layout_gravity="bottom" />
-</FrameLayout>
+        style="@style/button_style"
+        android:text="@string/s_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+         />
+        </android.support.constraint.ConstraintLayout>
+
+
+
 
 

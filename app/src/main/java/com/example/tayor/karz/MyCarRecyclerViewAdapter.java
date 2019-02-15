@@ -39,6 +39,7 @@ public class MyCarRecyclerViewAdapter extends RecyclerView.Adapter<MyCarRecycler
         holder.mCar = mCarList.get(position);
         holder.mCarNameView.setText(mCarList.get(position).getName());
         holder.mModelView.setText(mCarList.get(position).getModel());
+        holder.mCarInitial.setText(String.valueOf(mCarList.get(position).getName().charAt(0)));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +62,7 @@ public class MyCarRecyclerViewAdapter extends RecyclerView.Adapter<MyCarRecycler
         public final View mView;
         public final TextView mCarNameView;
         public final TextView mModelView;
+        public final TextView mCarInitial;
         public Car mCar;
 
         public ViewHolder(View view) {
@@ -68,6 +70,7 @@ public class MyCarRecyclerViewAdapter extends RecyclerView.Adapter<MyCarRecycler
             mView = view;
             mCarNameView = (TextView) view.findViewById(R.id.car_name);
             mModelView = (TextView) view.findViewById(R.id.model);
+            mCarInitial = view.findViewById(R.id.car_initial);
         }
 
         @Override

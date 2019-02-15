@@ -3,33 +3,38 @@ package com.example.tayor.karz;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PaymentFragment.OnPaymentFragmentInteractionListener} interface
+ * {@link RegisterFragment.OnRegisterInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PaymentFragment#newInstance} factory method to
+ * Use the {@link RegisterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PaymentFragment extends Fragment {
+public class RegisterFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    TextInputEditText username_et,password_et,confirm_password_et;
+    Button next;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnPaymentFragmentInteractionListener mListener;
+    private OnRegisterInteractionListener mListener;
 
-    public PaymentFragment() {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +44,11 @@ public class PaymentFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PaymentFragment.
+     * @return A new instance of fragment RegisterFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PaymentFragment newInstance(String param1, String param2) {
-        PaymentFragment fragment = new PaymentFragment();
+    public static RegisterFragment newInstance(String param1, String param2) {
+        RegisterFragment fragment = new RegisterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,21 +69,64 @@ public class PaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_payment, container, false);
+        View v =  inflater.inflate(R.layout.fragment_register, container, false);
+        initializeComponents(v);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextStep();
+            }
+        });
+        return v;
     }
 
+    void initializeComponents(View v){
+        next = v.findViewById(R.id.next);
+        username_et = v.findViewById(R.id.reg_username_et);
+        password_et = v.findViewById(R.id.reg_password_et);
+        confirm_password_et = v.findViewById(R.id.reg_con_pass_et);
+    }
+
+    private void nextStep() {
+        if(username_et.getText() == null || username_et.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Invalid Username", Toast.LENGTH_SHORT).show();
+            setListenerToNull();
+        }
+        else if(password_et.getText() == null || password_et.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Enter a password", Toast.LENGTH_SHORT).show();
+            setListenerToNull();
+        }
+        else if(confirm_password_et.getText() == null || confirm_password_et.getText().toString().isEmpty()) {
+            Toast.makeText(getContext(), "Confirm password", Toast.LENGTH_SHORT).show();
+            setListenerToNull();
+        }
+        else if(!(password_et.getText().toString().equals(confirm_password_et.getText().toString()))) {
+            Toast.makeText(getContext(), "Passwords doesn't match", Toast.LENGTH_SHORT).show();
+            setListenerToNull();
+        }
+        else
+            mListener =  (OnRegisterInteractionListener) getContext();
+
+        if (mListener != null) {
+            mListener.onRegisterInteraction();
+        }
+    }
+
+    void setListenerToNull(){
+        mListener = null;
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onPaymentFragmentInteraction(uri);
+            mListener.onRegisterInteraction();
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnPaymentFragmentInteractionListener) {
-            mListener = (OnPaymentFragmentInteractionListener) context;
+        if (context instanceof OnRegisterInteractionListener) {
+            mListener = (OnRegisterInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -101,8 +149,8 @@ public class PaymentFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnPaymentFragmentInteractionListener {
+    public interface OnRegisterInteractionListener {
         // TODO: Update argument type and name
-        void onPaymentFragmentInteraction(Uri uri);
+        void onRegisterInteraction();
     }
 }

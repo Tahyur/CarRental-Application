@@ -32,13 +32,13 @@
                 android:background="@drawable/circle_background"/>
 
             <!--<ImageView-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:layout_margin="8dp"-->
-                <!--android:background="@drawable/circle_background"-->
-                <!--android:padding="8dp"-->
-                <!--android:src="@mipmap/ic_launcher_round" />-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:background="@drawable/circle_background"-->
+            <!--android:padding="8dp"-->
+            <!--android:src="@mipmap/ic_launcher_round" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,8 +54,7 @@
                     android:paddingTop="8dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:textColor="@color/white"
-                    android:text="Car Name"
+                    android:hint="Car Name"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
@@ -65,28 +64,20 @@
                     android:paddingTop="8dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:textColor="@color/white"
-                    android:text="Model"
+                    android:hint="Model"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
-                    android:visibility="invisible"
                     android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_margin="8dp"
-                        android:background="#00FF00"
-                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="Available"/>
+                        android:text="DateTime"/>
 
                 </LinearLayout>
 

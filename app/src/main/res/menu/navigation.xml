@@ -8,10 +8,10 @@
 
         android:title="@string/title_home" />
 
-    <item
+    <!--<item
         android:id="@+id/book_car"
         android:icon="@drawable/ic_car_black_24dp"
-        android:title="@string/book_car" />
+        android:title="@string/book_car" /> -->
 
     <item
         android:id="@+id/history"
