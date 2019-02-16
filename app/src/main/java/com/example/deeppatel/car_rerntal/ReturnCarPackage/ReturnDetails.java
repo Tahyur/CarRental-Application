@@ -51,7 +51,7 @@ public class ReturnDetails extends AppCompatActivity {
 
         if(item.getItemId() == R.id.payment){
 
-            Intent toPaymentActivity = new Intent(ReturnDetails.this, PaymentActivity.class);
+            Intent toPaymentActivity = new Intent(getApplicationContext(), PaymentActivity.class);
             startActivity(toPaymentActivity);
 
         }
