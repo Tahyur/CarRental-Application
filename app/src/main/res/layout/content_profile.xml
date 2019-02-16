@@ -26,13 +26,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:id="@+id/company_name"
-                style="@style/Label_style"
-                android:text="Client Name"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal"/>
-
+            <!--<TextView-->
+                <!--android:id="@+id/company_name"-->
+                <!--style="@style/Label_style"-->
+                <!--android:text="Client Name"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_gravity="center_horizontal"/>-->
 
         </LinearLayout>
 

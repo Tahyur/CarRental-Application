@@ -89,12 +89,16 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch(item.getItemId()){
             case R.id.profile:
                 Toast.makeText(this, "profile selected", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                 intent = new Intent(MainActivity.this,ProfileActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.log_out:
+                 intent = new Intent(MainActivity.this,SignInActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

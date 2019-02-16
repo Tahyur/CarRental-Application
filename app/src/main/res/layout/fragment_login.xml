@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="72dp"
         android:orientation="vertical">
 
         <TextView
