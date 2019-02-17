@@ -11,10 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary">
+
+                <ImageView
+                    android:id="@+id/client_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher_round"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,7 +95,7 @@
                     <TextView
                         android:id="@+id/car_color"
                         style="@style/book_car_tv_style"
-                        android:hint="car_name"
+                        android:hint="color name"
                         app:layout_constraintLeft_toRightOf="@id/car_model_label"
                         app:layout_constraintTop_toBottomOf="@id/model_name" />
                 </LinearLayout>
@@ -95,7 +119,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
             <View
                 android:id="@+id/view"
@@ -209,8 +232,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -221,10 +244,13 @@
                     <TextView
                         style="@style/book_car_tv_style"
                         android:textColorHint="@color/white"
-
                         android:hint="brief summary"/>
-
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

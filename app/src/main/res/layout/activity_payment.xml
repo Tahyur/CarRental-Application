@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:textColor="@color/colorPrimary"
         android:text="@string/s_payment_options"
         android:layout_margin="@dimen/text_margin"
         android:textSize="22sp"/>
@@ -60,6 +61,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/text_margin"
             android:paddingEnd="@dimen/text_margin"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintTop_toBottomOf="@id/payment_info"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,14 +76,14 @@
             app:layout_constraintTop_toBottomOf="@id/term_rb"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:textColorHint="@color/colorPrimary"
             android:hint="Visa, Master, interac accepted"/>
 
         <Button
             android:id="@+id/process"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Process"
-            android:layout_margin="@dimen/text_margin"
+            style="@style/button_style"
+            android:text="@string/s_process"
+            android:layout_marginTop="@dimen/text_margin"
             app:layout_constraintTop_toBottomOf="@id/credit_options"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>

@@ -1,6 +1,7 @@
 package com.example.tayor.karz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -27,6 +29,7 @@ public class RegisterFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     TextInputEditText username_et,password_et,confirm_password_et;
     Button next;
+    TextView sign_in;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -77,7 +80,21 @@ public class RegisterFragment extends Fragment {
                 nextStep();
             }
         });
+        sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToLogin();
+            }
+        });
         return v;
+    }
+
+    private void backToLogin() {
+        Intent intent = new Intent(getContext(),SignInActivity.class);
+        startActivity(intent);
+        if (mListener != null) {
+            mListener.onRegisterInteraction(1);
+        }
     }
 
     void initializeComponents(View v){
@@ -85,6 +102,7 @@ public class RegisterFragment extends Fragment {
         username_et = v.findViewById(R.id.reg_username_et);
         password_et = v.findViewById(R.id.reg_password_et);
         confirm_password_et = v.findViewById(R.id.reg_con_pass_et);
+        sign_in = v.findViewById(R.id.sign_in_reg);
     }
 
     private void nextStep() {
@@ -108,7 +126,7 @@ public class RegisterFragment extends Fragment {
             mListener =  (OnRegisterInteractionListener) getContext();
 
         if (mListener != null) {
-            mListener.onRegisterInteraction();
+            mListener.onRegisterInteraction(0);
         }
     }
 
@@ -118,7 +136,7 @@ public class RegisterFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onRegisterInteraction();
+            mListener.onRegisterInteraction(0);
         }
     }
 
@@ -151,6 +169,6 @@ public class RegisterFragment extends Fragment {
      */
     public interface OnRegisterInteractionListener {
         // TODO: Update argument type and name
-        void onRegisterInteraction();
+        void onRegisterInteraction(int flag);
     }
 }

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HistoryDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/client_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/car_info_label"
+                style="@style/Label_style"
+                android:layout_gravity="center_horizontal"
+                android:text="History Details" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/car_name_label"
+                    style="@style/book_car_tv_style"
+                    android:text="Name : " />
+
+                <TextView
+                    android:id="@+id/car_name"
+                    style="@style/book_car_tv_style"
+                    android:hint="car_name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/car_model_label"
+                    style="@style/book_car_tv_style"
+                    android:text="Model : " />
+
+                <TextView
+                    android:id="@+id/model_name"
+                    style="@style/book_car_tv_style"
+                    android:hint="model name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/car_color_label"
+                    style="@style/book_car_tv_style"
+                    android:text="Color : "
+                    app:layout_constraintTop_toBottomOf="@id/car_model_label" />
+
+                <TextView
+                    android:id="@+id/car_color"
+                    style="@style/book_car_tv_style"
+                    android:hint="color name"
+                    app:layout_constraintLeft_toRightOf="@id/car_model_label"
+                    app:layout_constraintTop_toBottomOf="@id/model_name" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/book_car_tv_style"
+                    android:text="Booked date" />
+
+                <TextView
+                    android:id="@+id/booked_date"
+                    style="@style/book_car_tv_style"
+                    android:hint="booked date" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/book_car_tv_style"
+                    android:text="Return date" />
+
+                <TextView
+                    android:id="@+id/return_date"
+                    style="@style/book_car_tv_style"
+                    android:hint="return date" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/book_car_tv_style"
+                    android:text="Deposit paid" />
+
+                <TextView
+                    android:id="@+id/deposit_paid"
+                    style="@style/book_car_tv_style"
+                    android:hint="deposit paid" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/book_car_tv_style"
+                    android:text="Balance" />
+
+                <TextView
+                    android:id="@+id/balance"
+                    style="@style/book_car_tv_style"
+                    android:hint="balance paid/owed" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/book_car_tv_style"
+                    android:text="Extra Charges" />
+
+                <TextView
+                    android:id="@+id/extra_charges"
+                    style="@style/book_car_tv_style"
+                    android:hint="extra charges" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

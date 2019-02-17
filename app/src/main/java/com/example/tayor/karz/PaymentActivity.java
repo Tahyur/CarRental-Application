@@ -1,6 +1,7 @@
 package com.example.tayor.karz;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,12 +9,14 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class PaymentActivity extends BaseActivity {
     WebView webView;
     RadioButton terms;
+    Button process;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class PaymentActivity extends BaseActivity {
 
         terms = findViewById(R.id.term_rb);
         webView = findViewById(R.id.pay_pal);
+        process = findViewById(R.id.process);
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
@@ -37,6 +41,18 @@ public class PaymentActivity extends BaseActivity {
                 displayAlert();
             }
         });
+
+        process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewReceipt();
+            }
+        });
+    }
+
+    private void viewReceipt() {
+        Intent intent = new Intent(PaymentActivity.this,ReceiptActivity.class);
+        startActivity(intent);
     }
 
     private void displayAlert() {
