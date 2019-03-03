@@ -42,4 +42,16 @@ public class CustomerEngine {
 
     }
 
+    public Customer delCustomer(int position){
+
+        if(customerListList.size() > 0){
+
+            return customerListList.remove(position);
+
+        }
+
+        return null;
+
+    }
+
 }

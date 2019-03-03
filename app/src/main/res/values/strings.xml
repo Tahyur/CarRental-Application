@@ -30,4 +30,6 @@
     <string name="history_lable">History</string>
     <string name="payment_success">Payment Received! Receipt Mailed.</string>
     <string name="back">Back</string>
+    <string name="confirm_cust_del">Confirm deletion</string>
+    <string name="delete_confirm_snackbar">DELETE</string>
 </resources>
