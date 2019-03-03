@@ -2,6 +2,9 @@ package com.example.deeppatel.car_rerntal.Customer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -23,12 +26,21 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
     RecyclerView customerList;
     CustomerEngine customerEngine;
     CustomerAdapter customerAdapter;
+    Paint paint = new Paint();
     private final String CUSTOMERSTR = "Customer";
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.customer_fragment_layout, container, false);
+
+        //Set the bottom navigation to home
+        ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_customer);
+
+        //Set the actionbar title to home
+        ((Home) getActivity()).setActionBarTitle(getText(R.string.title_customer).toString());
 
         customerList = view.findViewById(R.id.customer_list);
         customerList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -66,12 +78,39 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
                             }
                         }).show();
             }
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                paint.setColor(Color.RED);
+
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+
+                    if(dX > 0){
+
+                        c.drawRect((float) viewHolder.itemView.getLeft(), (float) viewHolder.itemView.getTop(), dX,
+                                (float) viewHolder.itemView.getBottom(), paint);
+
+
+                    }else{
+
+                        c.drawRect((float) viewHolder.itemView.getRight() + dX, (float) viewHolder.itemView.getTop(),
+                                (float) viewHolder.itemView.getRight(), (float) viewHolder.itemView.getBottom(), paint);
+                    }
+
+                }
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
         });
 
         swipeToDel.attachToRecyclerView(customerList);
 
         return view;
     }
+
+
+
 
     @Override
     public void onCustomerItemClicked(int position, View view) {
@@ -80,5 +119,15 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
         toEditCar.putExtra(CUSTOMERSTR, customerEngine.getcustomer(position));
         startActivity(toEditCar);
 
+    }
+
+    @Override
+    public void onResume() {
+        //Set the bottom navigation to home
+        ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_customer);
+
+        //Set the actionbar title to home
+        ((Home) getActivity()).setActionBarTitle(getText(R.string.title_customer).toString());
+        super.onResume();
     }
 }
