@@ -28,7 +28,7 @@ public class AllCarsAdapter extends RecyclerView.Adapter<AllCarsAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View listItem = LayoutInflater
                                 .from(viewGroup.getContext())
-                                .inflate(R.layout.all_car_item_layout, viewGroup, false);
+                                .inflate(R.layout.list_item_all_car, viewGroup, false);
 
                 return new ViewHolder(listItem, onAllCarItemClickedListener);
     }

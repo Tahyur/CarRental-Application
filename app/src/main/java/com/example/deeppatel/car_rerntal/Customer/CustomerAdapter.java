@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.deeppatel.car_rerntal.Cars.AllCarsAdapter;
 import com.example.deeppatel.car_rerntal.R;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> {
@@ -29,7 +28,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View listItem = LayoutInflater
                 .from(viewGroup.getContext())
-                .inflate(R.layout.fragment_customer_item_layout, viewGroup, false);
+                .inflate(R.layout.list_item_customer, viewGroup, false);
 
         return new ViewHolder(listItem, onCustomerItemClickedListener);
     }

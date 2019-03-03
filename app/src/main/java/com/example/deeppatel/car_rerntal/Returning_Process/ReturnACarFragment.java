@@ -29,7 +29,7 @@ public class ReturnACarFragment extends Fragment implements CarsAdapter.OnCarIte
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.booked_cars_list, container, false);
+        View rootView = inflater.inflate(R.layout.list_booked_cars, container, false);
 
 
         //Set the bottom navigation to home

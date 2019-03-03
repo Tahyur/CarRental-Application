@@ -28,7 +28,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
 
         View listItem = LayoutInflater
                         .from(viewGroup.getContext())
-                        .inflate(R.layout.car_item_layout, viewGroup, false);
+                        .inflate(R.layout.lisy_item_booked_car, viewGroup, false);
 
         return new ViewHolder(listItem, onCarItemClickedListener);
 
