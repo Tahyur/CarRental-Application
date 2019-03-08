@@ -24,7 +24,7 @@
     <string name="s_finish">Finish</string>
     <string name="s_car_tag">Car</string>
     <string name="title_activity_profile">ProfileActivity</string>
-    <string name="s_username_email">Username / Email</string>
+    <string name="s_email">Email</string>
     <string name="s_update">Update</string>
     <string name="s_process">Process</string>
     <string name="s_sign_in">Sign in</string>

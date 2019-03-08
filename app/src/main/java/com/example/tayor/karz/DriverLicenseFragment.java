@@ -9,7 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.tayor.karz.Model.License;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
@@ -25,9 +31,11 @@ public class DriverLicenseFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private EditText license,name,address,clazz,exp_date,province,zip;
+    private FirebaseUser user;
     Button finish;
     ImageView camera;
+    DatabaseReference mDatabase;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -36,6 +44,10 @@ public class DriverLicenseFragment extends Fragment {
 
     public DriverLicenseFragment() {
         // Required empty public constructor
+    }
+
+    public DriverLicenseFragment(FirebaseUser user){
+        this.user = user;
     }
 
     /**
@@ -70,23 +82,53 @@ public class DriverLicenseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_driver_license, container, false);
+        license = v.findViewById(R.id.lic_et);
+        name = v.findViewById(R.id.name_et);
+        address = v.findViewById(R.id.address_et);
+        zip = v.findViewById(R.id.zip_et);
+        exp_date = v.findViewById(R.id.expire_et);
+        province = v.findViewById(R.id.province_et);
+        clazz = v.findViewById(R.id.class_et);
+
         finish = v.findViewById(R.id.finish);
-     //   camera = v.
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadMainActivity();
+                getLicenseInfo();
             }
         });
         return v;
     }
 
-    private void loadMainActivity() {
-//        Intent intent = new Intent(getActivity(),MainActivity.class);
-//        startActivity(intent);
-        if(mListener != null)
+    private void getLicenseInfo(){
+        String licenseNo = license.getText().toString();
+        String name_ = name.getText().toString();
+        String address_ = address.getText().toString();
+        String zip_ = zip.getText().toString();
+        String exp_date_ = exp_date.getText().toString();
+        String province_ = province.getText().toString();
+        String clazz_ = clazz.getText().toString();
+
+        License license = new License();
+        license.setLicense(licenseNo);
+        license.setName(name_);
+        license.setAddress(address_);
+        license.setZip(zip_);
+        license.setExp_date(exp_date_);
+        license.setProvince(province_);
+        license.setClazz(clazz_);
+
+        loadMainActivity(license);
+    }
+
+    private void loadMainActivity(License license) {
+        if(mListener != null) {
+            // Saves the license information to the database
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("license").child(user.getUid()).setValue(license);
             mListener.onLicenseInteraction();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

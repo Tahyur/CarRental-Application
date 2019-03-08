@@ -146,12 +146,12 @@
                     <TextView
                         android:id="@+id/per_km_label"
                         style="@style/book_car_tv_style"
-                        android:text="Pricing(/hr) : " />
+                        android:text="Pricing(/km) : " />
 
                     <TextView
                         android:id="@+id/per_km_charge"
                         style="@style/book_car_tv_style"
-                        android:hint="price" />
+                        android:hint="$1.50" />
 
                 </LinearLayout>
 
@@ -181,14 +181,15 @@
                         style="@style/book_car_tv_style"
                         android:text="Renting Period : " />
 
-                    <Spinner
+                    <TextView
                         android:id="@+id/start_date_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:paddingTop="16dp"
-                        android:tooltipText="Start date" />
+                        android:gravity="center_vertical"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textColor="@color/colorPrimary"
+                        android:hint="▼" />
 
                     <TextView
                         android:id="@+id/to_label"
@@ -196,14 +197,13 @@
                         android:layout_marginStart="8dp"
                         android:text="to " />
 
-                    <Spinner
+                    <TextView
                         android:id="@+id/end_date_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:paddingTop="16dp"
-                        android:tooltipText="Start date" />
+                        android:textColorHint="@color/colorPrimary"
+                        android:textColor="@color/colorPrimary"
+                        android:hint="▼" />
 
 
                 </LinearLayout>
@@ -230,6 +230,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/estimate_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
@@ -242,8 +243,9 @@
                     android:background="@color/colorPrimary">
 
                     <TextView
+                        android:id="@+id/summary"
                         style="@style/book_car_tv_style"
-                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
                         android:hint="brief summary"/>
                 </LinearLayout>
 
@@ -255,11 +257,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
                     android:background="@color/colorPrimary">
 
                     <TextView
+                        android:id="@+id/billing_overview"
                         style="@style/book_car_tv_style"
-                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
                         android:hint="bill estimate"/>
 
                 </LinearLayout>

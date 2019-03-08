@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.tayor.karz.Model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 /**
@@ -27,10 +35,10 @@ public class RegisterFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    TextInputEditText username_et,password_et,confirm_password_et;
+    TextInputEditText email_et, password_et, confirm_password_et;
     Button next;
     TextView sign_in;
-
+    private FirebaseAuth mAuth;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -72,8 +80,9 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_register, container, false);
+        View v = inflater.inflate(R.layout.fragment_register, container, false);
         initializeComponents(v);
+        mAuth = FirebaseAuth.getInstance();
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,49 +99,52 @@ public class RegisterFragment extends Fragment {
     }
 
     private void backToLogin() {
-        Intent intent = new Intent(getContext(),SignInActivity.class);
+        Intent intent = new Intent(getContext(), SignInActivity.class);
         startActivity(intent);
         if (mListener != null) {
             mListener.onRegisterInteraction(1);
         }
     }
 
-    void initializeComponents(View v){
+    void initializeComponents(View v) {
         next = v.findViewById(R.id.next);
-        username_et = v.findViewById(R.id.reg_username_et);
+        email_et = v.findViewById(R.id.reg_email_add_et);
         password_et = v.findViewById(R.id.reg_password_et);
         confirm_password_et = v.findViewById(R.id.reg_con_pass_et);
         sign_in = v.findViewById(R.id.sign_in_reg);
     }
 
     private void nextStep() {
-        if(username_et.getText() == null || username_et.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Invalid Username", Toast.LENGTH_SHORT).show();
-            setListenerToNull();
-        }
-        else if(password_et.getText() == null || password_et.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Enter a password", Toast.LENGTH_SHORT).show();
-            setListenerToNull();
-        }
-        else if(confirm_password_et.getText() == null || confirm_password_et.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), "Confirm password", Toast.LENGTH_SHORT).show();
-            setListenerToNull();
-        }
-        else if(!(password_et.getText().toString().equals(confirm_password_et.getText().toString()))) {
-            Toast.makeText(getContext(), "Passwords doesn't match", Toast.LENGTH_SHORT).show();
-            setListenerToNull();
-        }
-        else
-            mListener =  (OnRegisterInteractionListener) getContext();
+        String email = email_et.getText().toString();
+        String password = password_et.getText().toString();
+        String confirmPassword = confirm_password_et.getText().toString();
 
-        if (mListener != null) {
-            mListener.onRegisterInteraction(0);
+        try {
+            User user = new User();
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setConfirmPassword(confirmPassword);
+
+            if (mListener != null) {
+                mAuth.createUserWithEmailAndPassword(email_et.getText().toString(), password_et.getText().toString()).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(getContext(), "Successfully registered " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                            mListener.onRegisterInteraction(0);
+                        } else {
+                            Toast.makeText(getActivity(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    void setListenerToNull(){
-        mListener = null;
-    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

@@ -57,10 +57,10 @@
                     android:text="@string/s_sign_in"/>
             </LinearLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/reg_username_et"
-                android:hint="@string/s_username"
-                style="@style/edit_text_style" />
+            <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/reg_username_et"-->
+                <!--android:hint="@string/s_username"-->
+                <!--style="@style/edit_text_style" />-->
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/reg_email_add_et"

@@ -16,11 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tayor.karz.Model.Car;
 import com.example.tayor.karz.dummy.DummyContent;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends BaseActivity implements
         CarFragment.OnListFragmentInteractionListener,HistoryFragment.OnHistoryListFragmentInteractionListener {
-
+   // private FirebaseAuth mAuth;
     private TextView mTextMessage;
     private TextView mOptionalMessage;
   //  private android.support.v7.widget.Toolbar mTopToolbar;
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+    //    mAuth = FirebaseAuth.getInstance();
    //     mTopToolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(mTopToolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -114,6 +115,7 @@ public class MainActivity extends BaseActivity implements
                 startActivity(intent);
                 return true;
             case R.id.log_out:
+                FirebaseAuth.getInstance().signOut();
                 intent = new Intent(MainActivity.this,SignInActivity.class);
                 startActivity(intent);
         }
