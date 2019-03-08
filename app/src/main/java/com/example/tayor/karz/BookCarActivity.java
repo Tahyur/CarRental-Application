@@ -20,6 +20,8 @@ import org.joda.time.Days;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
@@ -161,8 +163,10 @@ public class BookCarActivity extends BaseActivity {
             Date sDate = new SimpleDateFormat("dd MMM, yyyy hh:mm a").parse(startDate);
             Date eDate = new SimpleDateFormat("dd MMM, yyyy hh:mm a").parse(endDate);
 
-            if(sDate.after(eDate))
-                throw new Exception("Start date cannot come before the end date, please review");
+            if(sDate.before(Calendar.getInstance().getTime()))
+                throw new Exception("Start date cannot come before current date, please review");
+            else if(sDate.after(eDate))
+                throw new Exception("Start date cannot come after the end date, please review");
             else
                 showEstimate(sDate,eDate);
         } catch (ParseException e) {
