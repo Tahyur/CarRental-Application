@@ -43,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
                 backToLogin();
             }
         });
-
     }
 
     private void backToLogin() {
@@ -70,8 +69,6 @@ public class RegisterActivity extends AppCompatActivity {
             user.setEmail(email);
             user.setPassword(password);
             user.setConfirmPassword(confirmPassword);
-
-
                 mAuth.createUserWithEmailAndPassword(email_et.getText().toString(), password_et.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

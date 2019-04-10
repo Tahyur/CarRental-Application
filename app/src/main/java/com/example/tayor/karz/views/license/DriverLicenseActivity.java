@@ -4,6 +4,10 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -11,6 +15,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,9 +29,24 @@ import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.License;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.MainActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+import com.google.firebase.ml.vision.text.RecognizedLanguage;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.util.List;
 
 public class DriverLicenseActivity extends BaseActivity {
     private EditText license,name,address,clazz,exp_date,province,zip;
@@ -120,6 +141,8 @@ public class DriverLicenseActivity extends BaseActivity {
     private void pickGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
+        String [] mimeTypes = {"image/jpg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
         startActivityForResult(intent,IMAGE_PICK_GALLERY_CODE);
     }
 
@@ -129,7 +152,7 @@ public class DriverLicenseActivity extends BaseActivity {
 
 
     private boolean checkStoragePermission() {
-        return false;
+        return  ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
     private void pickCamera() {
@@ -184,10 +207,76 @@ public class DriverLicenseActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(resultCode == RESULT_OK){
             if(requestCode == IMAGE_PICK_GALLERY_CODE){
-
+                CropImage.activity(data.getData()).setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
             }
             if(requestCode == IMAGE_PICK_CAMERA_CODE){
+                CropImage.activity(imageUri).setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this);
+            }
+        }
 
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK){
+                Uri resultUri = result.getUri();
+                image.setImageURI(resultUri);
+
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) image.getDrawable();
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+
+                FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+                FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+
+                final Task<FirebaseVisionText> res = textRecognizer.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                    @Override
+                    public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                        String blockText="";
+                        StringBuilder sb = new StringBuilder();
+                        for(FirebaseVisionText.TextBlock block : firebaseVisionText.getTextBlocks()){
+                            blockText = block.getText();
+                         //   sb.append(blockText).append("\n");
+                            for(FirebaseVisionText.Line lines : block.getLines()){
+                                String lineText = lines.getText();
+
+                                for(FirebaseVisionText.Element element : lines.getElements()){
+                                        String elementText = element.getText();
+                                        sb.append(elementText).append("\n");
+
+                                }
+                            }
+                        }
+                        Log.d("blockText",sb.toString());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+ //               TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
+
+//                if(!recognizer.isOperational()){
+//                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+//                    SparseArray<TextBlock> items = recognizer.detect(frame);
+//                    StringBuilder sb = new StringBuilder();
+//
+//                    for(int i=0;i<items.size();i++){
+//                        TextBlock textBlock = items.valueAt(i);
+//                        sb.append(textBlock.getValue()).append("\n");
+//                    }
+//
+//                    Log.d("textfromimage", sb.toString());
+
+
+              //  }
+            } else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+                Exception error = result.getError();
+                Log.d("errormessage", error.getMessage());
+                Toast.makeText(this,error.getMessage() , Toast.LENGTH_SHORT).show();
             }
         }
     }
