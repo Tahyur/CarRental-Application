@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Karz</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="s_list_of_available_cars">List of Available Cars</string>
+    <string name="book_car">Book Car</string>
+    <string name="history">History</string>
+    <string name="currently_booked">Currently Booked</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="car_information">Car Information</string>
+    <string name="s_payment_options">Payment</string>
+    <string name="s_company_logo">Company_logo</string>
+    <string name="s_register">Register</string>
+    <string name="s_username">Username</string>
+    <string name="s_password">Password</string>
+    <string name="s_login">Login</string>
+    <string name="s_company_name">Express Rentals</string>
+    <string name="s_license_registration">License Registration</string>
+    <string name="s_license_number">License Number</string>
+    <string name="s_next">Next</string>
+    <string name="s_finish">Finish</string>
+    <string name="s_car_tag">Car</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="s_email">Email</string>
+    <string name="s_update">Update</string>
+    <string name="s_process">Process</string>
+    <string name="s_sign_in">Sign in</string>
+</resources>

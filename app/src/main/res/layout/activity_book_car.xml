@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".views.car.BookCarActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary">
+
+                    <ImageView
+                        android:id="@+id/car_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        app:srcCompat="@mipmap/ic_launcher_round"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/car_info_label"
+                    style="@style/Label_style"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/car_information" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/car_name_label"
+                        style="@style/book_car_tv_style"
+                        android:text="Name : " />
+
+                    <TextView
+                        android:id="@+id/car_name"
+                        style="@style/book_car_tv_style"
+                        android:hint="car_name" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/car_model_label"
+                        style="@style/book_car_tv_style"
+                        android:text="Model : " />
+
+                    <TextView
+                        android:id="@+id/model_name"
+                        style="@style/book_car_tv_style"
+                        android:hint="model name" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/car_color_label"
+                        style="@style/book_car_tv_style"
+                        android:text="Color : "
+                        app:layout_constraintTop_toBottomOf="@id/car_model_label" />
+
+                    <TextView
+                        android:id="@+id/car_color"
+                        style="@style/book_car_tv_style"
+                        android:hint="color name"
+                        app:layout_constraintLeft_toRightOf="@id/car_model_label"
+                        app:layout_constraintTop_toBottomOf="@id/model_name" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/car_mileage_label"
+                        style="@style/book_car_tv_style"
+                        android:text="Mileage(km) : "
+                        app:layout_constraintTop_toBottomOf="@id/car_color_label" />
+
+                    <TextView
+                        android:id="@+id/mileage_name"
+                        style="@style/book_car_tv_style"
+                        android:hint="mileage name"
+                        app:layout_constraintLeft_toRightOf="@id/car_mileage_label"
+                        app:layout_constraintTop_toBottomOf="@id/car_color_label" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/green" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rent_info_label"
+                    style="@style/Label_style"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="Rent Information" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/per_km_label"
+                        style="@style/book_car_tv_style"
+                        android:text="Pricing(/km) : " />
+
+                    <TextView
+                        android:id="@+id/per_km_charge"
+                        style="@style/book_car_tv_style"
+                        android:hint="$1.50" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/fixed_deposit_label"
+                        style="@style/book_car_tv_style"
+                        android:text="Deposit : " />
+
+                    <TextView
+                        android:id="@+id/fixed_deposit_charge"
+                        style="@style/book_car_tv_style"
+                        android:hint="$50" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/renting_period"
+                        style="@style/book_car_tv_style"
+                        android:text="Renting Period : " />
+
+                    <TextView
+                        android:id="@+id/start_date_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center_vertical"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textColor="@color/colorPrimary"
+                        android:hint="start_date_time" />
+
+                    <TextView
+                        android:id="@+id/to_label"
+                        style="@style/book_car_tv_style"
+                        android:layout_marginStart="8dp"
+                        android:text="to " />
+
+                    <TextView
+                        android:id="@+id/end_date_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textColor="@color/colorPrimary"
+                        android:hint="end_date_time" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="end">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimary"
+                        android:layout_marginEnd="8dp"
+                        android:hint="start date/time"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorPrimary"
+                        android:hint="end date/time"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/estimate_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:id="@+id/summary"
+                        style="@style/book_car_tv_style"
+                        android:textColor="@color/white"
+                        android:hint="brief summary"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorPrimary">
+
+                    <TextView
+                        android:id="@+id/billing_overview"
+                        style="@style/book_car_tv_style"
+                        android:textColor="@color/white"
+                        android:hint="bill estimate"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/next_btn"
+        style="@style/button_style"
+        android:text="@string/s_next"
+
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
+
+
+
+
+

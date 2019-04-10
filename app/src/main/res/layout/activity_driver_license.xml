@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".views.license.DriverLicenseActivity">
+
+    <ImageView
+        android:id="@+id/img_lic"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        app:layout_constraintBottom_toTopOf="@id/lic_txt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lic_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s_license_registration"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/license_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/license_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/lic_et"
+                style="@style/edit_text_style"
+                android:hint="@string/s_license_number" />
+
+            <EditText
+                android:id="@+id/name_et"
+                style="@style/edit_text_style"
+                android:hint="Name" />
+
+            <EditText
+                android:id="@+id/address_et"
+                style="@style/edit_text_style"
+                android:hint="Address" />
+
+            <EditText
+                android:id="@+id/province_et"
+                style="@style/edit_text_style"
+                android:hint="Province" />
+
+            <EditText
+                android:id="@+id/zip_et"
+                style="@style/edit_text_style"
+                android:hint="Zip code" />
+
+            <EditText
+                android:id="@+id/class_et"
+                style="@style/edit_text_style"
+                android:hint="Class" />
+
+            <EditText
+                android:id="@+id/expire_et"
+                style="@style/edit_text_style"
+                android:hint="Expiry date (yyyy-mm-dd)" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/finish"
+        style="@style/button_style"
+        android:text="@string/s_finish"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
