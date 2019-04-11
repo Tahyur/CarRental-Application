@@ -6,20 +6,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.example.deeppatel.car_rerntal.Customer.Customer;
 import com.example.deeppatel.car_rerntal.R;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
+
+public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> implements Filterable {
 
     private OnCarItemClickedListener onCarItemClickedListener;
     private CarsEngine carsEngine;
+    List<Car> bookedCarsListFull;
 
 
     public CarsAdapter(OnCarItemClickedListener onCarItemClickedListener, CarsEngine carsEngine) {
         this.onCarItemClickedListener = onCarItemClickedListener;
         this.carsEngine = carsEngine;
+        this.bookedCarsListFull = carsEngine.getCarList();
     }
 
     @NonNull
@@ -54,6 +62,57 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> {
     public int getItemCount() {
         return carsEngine.getCount();
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Car> bookedCarsListNew = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+
+                //No query in the search box
+                bookedCarsListNew.addAll(bookedCarsListFull);
+
+            } else {
+
+                String pattern = constraint.toString().toLowerCase().trim();
+
+                for (Car car : bookedCarsListFull) {
+
+                    if (car.getCar_name().toLowerCase().contains(pattern)) {
+
+                        bookedCarsListNew.add(car);
+
+                    }
+
+                }
+
+            }
+
+            FilterResults results = new FilterResults();
+
+            results.values = bookedCarsListNew;
+
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            carsEngine.setCarList((List) results.values);
+            notifyDataSetChanged();
+
+        }
+
+    };
+
 
     public interface OnCarItemClickedListener{
 

@@ -16,6 +16,8 @@
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
 
+        <item name="android:windowContentOverlay">@null</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">

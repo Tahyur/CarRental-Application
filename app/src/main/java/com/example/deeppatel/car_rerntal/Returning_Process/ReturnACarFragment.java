@@ -15,8 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.deeppatel.car_rerntal.Customer.SearchCustomer;
 import com.example.deeppatel.car_rerntal.Home;
 import com.example.deeppatel.car_rerntal.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class ReturnACarFragment extends Fragment implements CarsAdapter.OnCarItemClickedListener {
 
@@ -53,6 +58,12 @@ public class ReturnACarFragment extends Fragment implements CarsAdapter.OnCarIte
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSearchQuery(SearchCustomer event) {
+        String query=event.getQuery();
+        carsAdapter.getFilter().filter(query);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -62,6 +73,8 @@ public class ReturnACarFragment extends Fragment implements CarsAdapter.OnCarIte
 
         //Set the actionbar title to home
         ((Home) getActivity()).setActionBarTitle(getText(R.string.return_car).toString());
+
+        EventBus.getDefault().register(this);
 
     }
 
@@ -87,4 +100,16 @@ public class ReturnACarFragment extends Fragment implements CarsAdapter.OnCarIte
         ActivityCompat.startActivity(getContext(), toReturnDetails, options.toBundle());
 
     }
+
+    @Override
+    public void onPause() {
+
+        EventBus.getDefault().unregister(this);
+
+        super.onPause();
+    }
+
+
+
+
 }

@@ -6,19 +6,77 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.deeppatel.car_rerntal.R;
 
-public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> implements Filterable {
 
     private CustomerEngine customerEngine;
     private OnCustomerItemClickedListener onCustomerItemClickedListener;
+    //Make a duplicate of the customer list
+    List<Customer> customerListFull;
 
     public CustomerAdapter(CustomerEngine customerEngine, OnCustomerItemClickedListener onCustomerItemClickedListener) {
         this.customerEngine = customerEngine;
         this.onCustomerItemClickedListener = onCustomerItemClickedListener;
+        this.customerListFull = new ArrayList<>( customerEngine.getCustomerListList() );
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Customer> customerListNew = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+
+                //No query in the search box
+                customerListNew.addAll(customerListFull);
+
+            } else {
+
+                String pattern = constraint.toString().toLowerCase().trim();
+
+                for (Customer customer : customerListFull) {
+
+                    if (customer.getCustomerName().toLowerCase().contains(pattern)) {
+
+                        customerListNew.add(customer);
+
+                    }
+
+                }
+
+            }
+
+            FilterResults results = new FilterResults();
+
+            results.values = customerListNew;
+
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            customerEngine.setCustomerListList((List) results.values);
+            notifyDataSetChanged();
+
+        }
+
+    };
 
     public CustomerAdapter() {
     }
@@ -50,7 +108,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         TextView customer_name, license_no;

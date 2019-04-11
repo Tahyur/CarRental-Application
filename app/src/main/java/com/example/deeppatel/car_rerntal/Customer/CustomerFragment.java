@@ -9,11 +9,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -21,15 +25,18 @@ import android.widget.Toast;
 import com.example.deeppatel.car_rerntal.Home;
 import com.example.deeppatel.car_rerntal.R;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 public class CustomerFragment extends Fragment implements CustomerAdapter.OnCustomerItemClickedListener{
 
     RecyclerView customerList;
     CustomerEngine customerEngine;
     CustomerAdapter customerAdapter;
+    Toolbar toolbar_customer;
     Paint paint = new Paint();
     private final String CUSTOMERSTR = "Customer";
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,9 +116,6 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
         return view;
     }
 
-
-
-
     @Override
     public void onCustomerItemClicked(int position, View view) {
 
@@ -122,12 +126,29 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
     }
 
     @Override
+    public void onPause() {
+
+        EventBus.getDefault().unregister(this);
+
+        super.onPause();
+    }
+
+    @Override
     public void onResume() {
         //Set the bottom navigation to home
         ((Home) getActivity()).setBottomNavigationItemChecked(R.id.navigation_customer);
 
         //Set the actionbar title to home
         ((Home) getActivity()).setActionBarTitle(getText(R.string.title_customer).toString());
+
+        EventBus.getDefault().register(this);
+
         super.onResume();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSearchQuery(SearchCustomer event) {
+        String query=event.getQuery();
+        customerAdapter.getFilter().filter(query);
     }
 }

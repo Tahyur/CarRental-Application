@@ -20,6 +20,14 @@ public class CustomerEngine {
 
     }
 
+    public List<Customer> getCustomerListList() {
+        return customerListList;
+    }
+
+    public void setCustomerListList(List<Customer> customerListList) {
+        this.customerListList = customerListList;
+    }
+
     public Customer getcustomer(int position){
 
         if(customerListList.size() > 0){

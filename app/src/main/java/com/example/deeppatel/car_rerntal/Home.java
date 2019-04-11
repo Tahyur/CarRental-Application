@@ -7,16 +7,22 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.example.deeppatel.car_rerntal.Cars.CarFragment;
 import com.example.deeppatel.car_rerntal.Customer.CustomerFragment;
+import com.example.deeppatel.car_rerntal.Customer.SearchCustomer;
 import com.example.deeppatel.car_rerntal.Renting_Process.AvailableCarsFragment;
 import com.example.deeppatel.car_rerntal.Renting_Process.DataEngine.TransactionInfo;
 import com.example.deeppatel.car_rerntal.Renting_Process.SearchForCustomer;
 import com.example.deeppatel.car_rerntal.Renting_Process.DataEngine.Data_Available_Car;
 import com.example.deeppatel.car_rerntal.Returning_Process.ReturnACarFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Stack;
 
@@ -28,6 +34,7 @@ public class Home extends AppCompatActivity
     private android.support.v7.app.ActionBar actionBar;
     private Stack fragmentStack;
     private BottomNavigationView navigation;
+    private SearchView searchView;
     //Get the fragment manipulators ready for the transaction
     FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -73,6 +80,35 @@ public class Home extends AppCompatActivity
         }
     };
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.activity_home_search_info_menu, menu);
+
+        MenuItem actionOrderSearch = menu.findItem(R.id.item_search);
+        searchView = (SearchView) actionOrderSearch.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            //For real time search results
+            @Override
+            public boolean onQueryTextChange(String s) {
+
+                EventBus.getDefault().post(new SearchCustomer(s));
+
+                return false;
+            }
+        });
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +218,20 @@ public class Home extends AppCompatActivity
 
     }
 
+    public void closeSearchView(){
+
+        if(searchView != null){
+
+            if(!searchView.isIconified()){
+
+                searchView.setIconified(true);
+
+            }
+
+        }
+
+    }
+
     public  void replaceFragment(int fragmentId){
 
         FragmentTransaction fragmentTransaction;
@@ -208,6 +258,8 @@ public class Home extends AppCompatActivity
                 //fragmentTransaction.addToBackStack("Added Cust");
                 fragmentTransaction.commit();
 
+                closeSearchView();
+
                 break;
 
             case R.id.navigation_car:
@@ -222,6 +274,8 @@ public class Home extends AppCompatActivity
                 //Add the fragment to custom fragment stack
                 //fragmentTransaction.addToBackStack("Added Car");
                 fragmentTransaction.commit();
+
+                closeSearchView();
 
                 break;
 
@@ -238,6 +292,8 @@ public class Home extends AppCompatActivity
                 //fragmentTransaction.addToBackStack("Added rent");
                 fragmentTransaction.commit();
 
+                closeSearchView();
+
                 break;
 
             case R.id.navigation_return_car:
@@ -252,6 +308,8 @@ public class Home extends AppCompatActivity
                 //Add the fragment to custom fragment stack
                 //fragmentTransaction.addToBackStack("Added return");
                 fragmentTransaction.commit();
+
+                closeSearchView();
 
                 break;
 
