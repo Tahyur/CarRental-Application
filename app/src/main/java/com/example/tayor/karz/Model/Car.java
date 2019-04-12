@@ -23,6 +23,7 @@ public class Car extends RealmObject implements Parcelable {
     private String name;
     private String model;
     private int resource;
+
     private double mileage;
     private String color;
     private static List<Car> carList = new ArrayList<>();

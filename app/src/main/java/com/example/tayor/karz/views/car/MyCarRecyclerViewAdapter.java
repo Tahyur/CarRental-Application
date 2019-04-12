@@ -42,6 +42,7 @@ public class MyCarRecyclerViewAdapter extends RecyclerView.Adapter<MyCarRecycler
         holder.mCarNameView.setText(mCarList.get(position).getName());
         holder.mModelView.setText(mCarList.get(position).getModel());
         Picasso.get().load(mCarList.get(position).getResource()).fit().centerCrop().into(holder.mCarImage);
+
         holder.mCarMileage.setText(String.valueOf(mCarList.get(position).getMileage()));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

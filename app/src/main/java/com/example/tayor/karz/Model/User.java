@@ -1,45 +1,83 @@
 package com.example.tayor.karz.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Patterns;
 
 import java.util.regex.Pattern;
 
-public class User {
-    private String email;
-    private String password;
-    private String confirmPassword;
+public class User implements Parcelable {
+    private String userId;
+    private String firstName;
+    private String lastName;
+    private String licenseId;
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public User(Parcel in) {
+        userId = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        licenseId = in.readString();
     }
 
-    public void setConfirmPassword(String confirmPassword) throws Exception {
-        if(!(getPassword().equals(confirmPassword)))
-            throw new Exception("password mismatch");
-        this.confirmPassword = confirmPassword;
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    public User() {
+
     }
 
-    public String getEmail() {
-        return email;
+
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setEmail(String email) throws Exception {
-        Pattern pattern = Patterns.EMAIL_ADDRESS;
-        if (!(pattern.matcher(email).matches()))
-            throw new Exception("Invalid email address");
-        this.email = email;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPassword(String password) throws Exception {
-        if (password.isEmpty())
-            throw new Exception("Enter your password");
-        else if (password.length() < 8)
-            throw new Exception("password must be of 8 characters minimum");
-        else
-            this.password = password;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLicenseId() {
+        return licenseId;
+    }
+
+    public void setLicenseId(String licenseId) {
+        this.licenseId = licenseId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userId);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(licenseId);
     }
 }
