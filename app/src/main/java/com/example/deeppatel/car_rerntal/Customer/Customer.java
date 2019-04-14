@@ -2,6 +2,8 @@ package com.example.deeppatel.car_rerntal.Customer;
 
 import android.graphics.Color;
 
+import com.example.deeppatel.car_rerntal.Helpers.RandomColorGenerator;
+
 import java.io.Serializable;
 import java.util.Random;
 
@@ -14,7 +16,7 @@ public class Customer implements Serializable {
     public Customer(String customerName, String licenseNo) {
         this.customerName = customerName;
         this.licenseNo = licenseNo;
-        this.color = getRandColor();
+        this.color = RandomColorGenerator.getRandColor();
     }
 
     public int getColor() {
@@ -37,11 +39,5 @@ public class Customer implements Serializable {
         this.licenseNo = licenseNo;
     }
 
-    public static int getRandColor(){
-
-        Random rnd = new Random();
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-
-    }
 
 }

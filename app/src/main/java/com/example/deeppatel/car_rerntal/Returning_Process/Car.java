@@ -2,6 +2,8 @@ package com.example.deeppatel.car_rerntal.Returning_Process;
 
 import android.graphics.Color;
 
+import com.example.deeppatel.car_rerntal.Helpers.RandomColorGenerator;
+
 import java.io.Serializable;
 import java.util.Random;
 
@@ -20,15 +22,9 @@ public class Car implements Serializable {
         this.booked_by = booked_by;
         this.booked_on = booked_on;
         this.available_on = available_on;
-        this.color = getRandColor();
+        this.color = RandomColorGenerator.getRandColor();
     }
 
-    public static int getRandColor(){
-
-        Random rnd = new Random();
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-
-    }
 
     public Car() {
 
