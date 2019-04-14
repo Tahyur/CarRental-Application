@@ -1,5 +1,7 @@
 package com.example.deeppatel.car_rerntal.Renting_Process.DataEngine;
 
+import com.example.deeppatel.car_rerntal.Helpers.RandomColorGenerator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +40,7 @@ public class Data_Available_Car {
     }
 
     private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Car: " + position, makeDetails(position));
+        return new DummyItem(String.valueOf(position), "Car: " + position, makeDetails(position), RandomColorGenerator.getRandColor());
     }
 
     private static String makeDetails(int position) {
@@ -55,11 +57,13 @@ public class Data_Available_Car {
         public final String id;
         public final String content;
         public final String details;
+        public final int color;
 
-        public DummyItem(String id, String content, String details) {
+        public DummyItem(String id, String content, String details, int color) {
             this.id = id;
             this.content = content;
             this.details = details;
+            this.color = color;
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.example.deeppatel.car_rerntal.Renting_Process;
 
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,9 @@ public class MyAvailableCarsRecyclerViewAdapter extends RecyclerView.Adapter<MyA
         holder.mIdView.setText(mValues.get(position).content);
         holder.mContentView.setText(mValues.get(position).details);
 
+        GradientDrawable bgShape = (GradientDrawable) holder.circle_ele.getBackground();
+        bgShape.setColor(mValues.get(position).color);
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +65,7 @@ public class MyAvailableCarsRecyclerViewAdapter extends RecyclerView.Adapter<MyA
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final View circle_ele;
         public DummyItem mItem;
 
         public ViewHolder(View view) {
@@ -68,6 +73,7 @@ public class MyAvailableCarsRecyclerViewAdapter extends RecyclerView.Adapter<MyA
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
+            circle_ele = view.findViewById(R.id.CONTACT_circle);
         }
 
         @Override
