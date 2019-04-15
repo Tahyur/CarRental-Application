@@ -64,6 +64,7 @@
         </android.support.design.widget.TextInputLayout>
 
 
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,6 +102,21 @@
             android:layout_marginTop="@dimen/text_margin"
             android:background="@color/colorPrimary" />
     </LinearLayout>
+    <!--<com.github.ybq.android.spinkit.SpinKitView-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/spin_kit"-->
+        <!--style="@style/SpinKitView.Large.Circle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--app:SpinKit_Color="@color/colorAccent" />-->
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center_horizontal|center_vertical" />
 
     <Button
         android:id="@+id/login"

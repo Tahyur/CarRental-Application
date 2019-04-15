@@ -6,4 +6,5 @@
     <color name="colorAccent">@color/colorPrimaryDark</color>
     <color name="white">#4590EE90</color>
     <color name="green">#cc3f968a</color>
+    <color name="whyte">#ffffff</color>
 </resources>

@@ -23,36 +23,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.License;
-import com.example.tayor.karz.Model.User;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.text.TextBlock;
-import com.google.android.gms.vision.text.TextRecognizer;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-import com.google.firebase.ml.vision.text.RecognizedLanguage;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import java.util.List;
 
 public class DriverLicenseActivity extends BaseActivity {
     private EditText license, name, address, clazz, exp_date, province, zip;
@@ -81,7 +66,6 @@ public class DriverLicenseActivity extends BaseActivity {
                 {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
         license = findViewById(R.id.lic_et);
         name = findViewById(R.id.name_et);
         address = findViewById(R.id.address_et);
@@ -90,7 +74,6 @@ public class DriverLicenseActivity extends BaseActivity {
         province = findViewById(R.id.province_et);
         clazz = findViewById(R.id.class_et);
         image = findViewById(R.id.img_lic);
-
         finish = findViewById(R.id.finish);
 
         finish.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +251,7 @@ public class DriverLicenseActivity extends BaseActivity {
 
     private void loadMainActivity(License license) {
         if (license != null) {
-            // Saves the license information to the database
+            // Saves the license information to the database and updates user licenseId field
             db.collection("license").add(license).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {

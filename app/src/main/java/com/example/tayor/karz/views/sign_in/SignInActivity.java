@@ -12,11 +12,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.MainActivity;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Circle;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,6 +43,7 @@ public class SignInActivity extends AppCompatActivity {
     Button login_btn;
     SignInButton gSignInButton;
     GoogleSignInClient mGoogleSignInClient;
+    ProgressBar progressBar;
 
     @Override
     public void onStart() {
@@ -55,6 +60,9 @@ public class SignInActivity extends AppCompatActivity {
         initializeComponents();
         mAuth = FirebaseAuth.getInstance();
 
+        progressBar = findViewById(R.id.login_progress);
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("436916044367-dsjl8ba4sva9pivdgpunii8d8oliki1t.apps.googleusercontent.com")
                 .requestEmail()
@@ -65,6 +73,7 @@ public class SignInActivity extends AppCompatActivity {
         gSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressBar();
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 0);
             }
@@ -72,6 +81,7 @@ public class SignInActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressBar();
                 login();
             }
         });
@@ -82,6 +92,13 @@ public class SignInActivity extends AppCompatActivity {
                 loadRegistrationForm();
             }
         });
+    }
+
+    private  void showProgressBar(){
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.whyte),android.graphics.PorterDuff.Mode.MULTIPLY);
+//        Sprite circle = new Circle();
+//        progressBar.setIndeterminateDrawable(circle);
     }
 
     @Override
@@ -127,10 +144,13 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser currentUser = mAuth.getCurrentUser();
-                            Toast.makeText(SignInActivity.this, "You are logged in " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if(currentUser != null && currentUser.isEmailVerified()) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(SignInActivity.this, "You are logged in " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         } else {
                             Log.w("googleLoginError", "signInWithCredential:failure", task.getException());
 
@@ -171,9 +191,11 @@ public class SignInActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         FirebaseUser currentUser = mAuth.getCurrentUser();
-                        Toast.makeText(SignInActivity.this, "You are logged in " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        if(currentUser != null && currentUser.isEmailVerified()) {
+                            Toast.makeText(SignInActivity.this, "You are logged in " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
                     } else {
                         Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
