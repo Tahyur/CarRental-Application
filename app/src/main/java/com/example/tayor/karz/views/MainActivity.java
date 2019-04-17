@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.Car;
+import com.example.tayor.karz.Model.User;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.car.BookCarActivity;
 import com.example.tayor.karz.views.car.CarFragment;
@@ -57,11 +58,11 @@ public class MainActivity extends BaseActivity implements
     private TextView mOptionalMessage;
     private StorageReference storageReference;
     private FirebaseStorage storage;
-    private StorageMetadata storageMetadata;
+    private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private CardView cardView;
     private FrameLayout frameLayout;
-
+    private String documentPath;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -121,7 +122,9 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        mAuth = FirebaseAuth.getInstance();
 
+        documentPath = getIntent().getStringExtra("documentpath");
         String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         Log.d("absolutePath", rootPath);
         RealmConfiguration configuration = new RealmConfiguration.Builder().name("localdata").directory(new File(rootPath + "/realm")).build();
@@ -152,6 +155,8 @@ public class MainActivity extends BaseActivity implements
             case R.id.profile:
                 Toast.makeText(this, "profile selected", Toast.LENGTH_SHORT).show();
                 intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("documentPath",documentPath);
+
                 startActivity(intent);
                 return true;
             case R.id.log_out:

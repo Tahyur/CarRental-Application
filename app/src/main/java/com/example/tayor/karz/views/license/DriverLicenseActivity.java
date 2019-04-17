@@ -274,6 +274,7 @@ public class DriverLicenseActivity extends BaseActivity {
            @Override
            public void onSuccess(Void aVoid) {
                Intent intent = new Intent(DriverLicenseActivity.this, MainActivity.class);
+               intent.putExtra("documentPath",path);
                startActivity(intent);
                finish();
            }

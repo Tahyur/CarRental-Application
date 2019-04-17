@@ -28,4 +28,6 @@
     <string name="s_update">Update</string>
     <string name="s_process">Process</string>
     <string name="s_sign_in">Sign in</string>
+    <string name="s_first_name">First Name</string>
+    <string name="s_last_name">Last Name</string>
 </resources>

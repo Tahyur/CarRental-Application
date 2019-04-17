@@ -191,7 +191,8 @@ public class SignInActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         FirebaseUser currentUser = mAuth.getCurrentUser();
-                        if(currentUser != null && currentUser.isEmailVerified()) {
+                        if(currentUser != null) {
+                            progressBar.setVisibility(View.INVISIBLE);
                             Toast.makeText(SignInActivity.this, "You are logged in " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
