@@ -3,6 +3,7 @@ package com.example.deeppatel.car_rerntal.Customer;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,31 @@ import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> implements Filterable {
 
-    private CustomerEngine customerEngine;
+    private CustomerEngine customerEngine = new CustomerEngine();
     private OnCustomerItemClickedListener onCustomerItemClickedListener;
     //Make a duplicate of the customer list
-    List<Customer> customerListFull;
+    static List<Customer> customerListFull;
+
+    public CustomerEngine getCustomerEngine() {
+        return customerEngine;
+    }
+
+    public void setCustomerEngine(CustomerEngine customerEngine) {
+        this.customerEngine = customerEngine;
+    }
+
+    public OnCustomerItemClickedListener getOnCustomerItemClickedListener() {
+        return onCustomerItemClickedListener;
+    }
+
+    public void setOnCustomerItemClickedListener(OnCustomerItemClickedListener onCustomerItemClickedListener) {
+        this.onCustomerItemClickedListener = onCustomerItemClickedListener;
+    }
 
     public CustomerAdapter(CustomerEngine customerEngine, OnCustomerItemClickedListener onCustomerItemClickedListener) {
         this.customerEngine = customerEngine;
         this.onCustomerItemClickedListener = onCustomerItemClickedListener;
-        this.customerListFull = new ArrayList<>( customerEngine.getCustomerListList() );
+        this.customerListFull = customerEngine.getCustomerListList();
     }
 
     @Override
@@ -43,7 +60,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
                 //No query in the search box
                 customerListNew.addAll(customerListFull);
-
             } else {
 
                 String pattern = constraint.toString().toLowerCase().trim();
@@ -79,6 +95,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     };
 
     public CustomerAdapter() {
+        this.customerListFull = new ArrayList<>( customerEngine.getCustomerListList() );
     }
 
     @NonNull
@@ -94,11 +111,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        final Customer car = customerEngine.getcustomer(i);
-        viewHolder.customer_name.setText(car.getCustomerName());
+        final Customer customer = customerEngine.getcustomer(i);
+        viewHolder.customer_name.setText(customer.getCustomerName());
 
         GradientDrawable bgShape = (GradientDrawable) viewHolder.circle_ele.getBackground();
-        bgShape.setColor(car.getColor());
+        bgShape.setColor(customer.getColor());
 
     }
 
@@ -111,7 +128,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-        TextView customer_name, license_no;
+        TextView customer_name;
         View circle_ele;
         OnCustomerItemClickedListener onCustomerItemClickedListener;
         //Gotta declare image for the car once available

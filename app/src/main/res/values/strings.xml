@@ -32,4 +32,15 @@
     <string name="back">Back</string>
     <string name="confirm_cust_del">Confirm deletion</string>
     <string name="delete_confirm_snackbar">DELETE</string>
+    <string name="customer_register">Register</string>
+    <string name="license_number">License Number</string>
+    <string name="name">Name</string>
+    <string name="province">Province</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="house_apt_and_street_name">House / Apt and Street Name</string>
+    <string name="license_class">License Class</string>
+    <string name="save">Save</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="edit_customer">Edit Customer</string>
 </resources>

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,12 +24,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.deeppatel.car_rerntal.Cars.EditCar;
 import com.example.deeppatel.car_rerntal.Home;
 import com.example.deeppatel.car_rerntal.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import es.dmoral.toasty.Toasty;
 
 public class CustomerFragment extends Fragment implements CustomerAdapter.OnCustomerItemClickedListener{
 
@@ -52,11 +62,18 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
         customerList = view.findViewById(R.id.customer_list);
         customerList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        customerEngine = new CustomerEngine();
-        customerEngine.addCustomers(10);
-        customerAdapter = new CustomerAdapter(customerEngine, this);
 
+        customerEngine = new CustomerEngine();
+       // customerEngine.getCustomerListList();
+
+        customerAdapter = new CustomerAdapter();
+
+        customerAdapter.setCustomerEngine(customerEngine);
+
+        customerAdapter.setOnCustomerItemClickedListener(this);
+        customerEngine.addCustomers(customerAdapter);
         customerList.setAdapter(customerAdapter);
+
 
         ItemTouchHelper swipeToDel = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -76,12 +93,53 @@ public class CustomerFragment extends Fragment implements CustomerAdapter.OnCust
                             public void onClick(View v) {
 
                                 //Make sure the user wants to delete the customer after all
-                                Toast.makeText(getContext(),
+                                Toasty.success(getContext(),
                                         customerEngine.getcustomer(viewHolder.getAdapterPosition()).getCustomerName()+ " is deleted" ,
                                         Toast.LENGTH_SHORT).show();
+
+                                //Delete the customer from Fire store
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+                                //Delete the license first
+                                db.collection("license")
+                                        .document(customerEngine.getcustomer(viewHolder.getAdapterPosition()).getLicenseId())
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("SUCCESS DELETE", "DocumentSnapshot successfully deleted!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("ERROR DELETE", "Error deleting document", e);
+                                            }
+                                        });
+
+                                //Delete the user
+
+                                db.collection("user")
+                                        .document(customerEngine.getcustomer(viewHolder.getAdapterPosition()).getId())
+                                        .delete()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("SUCCESS DELETE", "DocumentSnapshot successfully deleted!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("ERROR DELETE", "Error deleting document", e);
+                                            }
+                                        });
+
                                 customerEngine.delCustomer(viewHolder.getAdapterPosition());
                                 customerAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
                                 customerAdapter.notifyItemRangeChanged(viewHolder.getAdapterPosition(), customerAdapter.getItemCount());
+
                             }
                         }).show();
             }

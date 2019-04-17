@@ -1,17 +1,28 @@
 package com.example.deeppatel.car_rerntal.Customer;
 
+import android.util.Log;
+
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class CustomerEngine {
 
-    private List<Customer> customerListList = new ArrayList<>();
+    private List<Customer> customerListList;
 
     public CustomerEngine(List<Customer> customerListList) {
         this.customerListList = customerListList;
     }
 
     public CustomerEngine() {
+        customerListList = new ArrayList<>();
     }
 
     public int getCount(){
@@ -21,7 +32,9 @@ public class CustomerEngine {
     }
 
     public List<Customer> getCustomerListList() {
+
         return customerListList;
+
     }
 
     public void setCustomerListList(List<Customer> customerListList) {
@@ -40,13 +53,64 @@ public class CustomerEngine {
 
     }
 
-    public void addCustomers(int count){
+    public void addCustomers(final CustomerAdapter customerAdapter){
 
-        for(int i = 0; i < count; i++){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            customerListList.add(new Customer("Customer " + i, "License No:" + i));
+        db.collection("user")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
-        }
+                        if (e != null) {
+
+                            Log.e("FIRE STORE ERROR", e.getMessage());
+
+                            return;
+                        }
+
+                        customerListList = new ArrayList<>();
+
+                        for(QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots){
+
+                            if(queryDocumentSnapshot != null){
+
+                                Log.i("CUSTOMER", queryDocumentSnapshot.get("firstName").toString());
+
+                                if(queryDocumentSnapshot.get("firstName") != null){
+
+                                    if(queryDocumentSnapshot.get("lastName") != null){
+
+                                        if(queryDocumentSnapshot.get("licenseId") != null){
+
+                                            if(queryDocumentSnapshot.get("userId") != null){
+
+                                                customerListList.add(new Customer(
+                                                        queryDocumentSnapshot.get("firstName").toString(),
+                                                        queryDocumentSnapshot.get("lastName").toString(),
+                                                        queryDocumentSnapshot.get("licenseId").toString(),
+                                                        queryDocumentSnapshot.get("userId").toString(),
+                                                        queryDocumentSnapshot.getId()));
+
+
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        //Notify the list and the dependent lists of the data change
+                        customerAdapter.notifyDataSetChanged();
+                        CustomerAdapter.customerListFull = getCustomerListList();
+
+                    }
+                });
 
     }
 
