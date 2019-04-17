@@ -1,9 +1,12 @@
 package com.example.deeppatel.car_rerntal;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.deeppatel.car_rerntal.Cars.fragments.CarFragment;
 import com.example.deeppatel.car_rerntal.Customer.CustomerFragment;
@@ -124,6 +128,7 @@ public class Home extends AppCompatActivity
         fragmentStack = new Stack();
         //Add HomeFragment object to it
         replaceFragment(R.id.navigation_rent);
+        getPermission();
 
     }
 
@@ -275,5 +280,19 @@ public class Home extends AppCompatActivity
         Intent text = new Intent(this, TextRecognition.class);
         text.putExtra("selected_car", String.valueOf(item));
         startActivity(text);
+    }
+
+    private void getPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == 0){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                Toast.makeText(this, "granted", Toast.LENGTH_SHORT).show();
+        }
     }
 }

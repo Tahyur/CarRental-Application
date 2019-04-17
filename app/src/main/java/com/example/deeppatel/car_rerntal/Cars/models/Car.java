@@ -9,10 +9,24 @@ import java.util.Random;
 public class Car  implements Serializable {
     private String name;
     private String model;
-    double mileage;
-    String image=null;
+    private double mileage;
+    private String image=null;
     private boolean status;
     private int color;
+    private String ID;
+
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public boolean getStatus() {
         return status;

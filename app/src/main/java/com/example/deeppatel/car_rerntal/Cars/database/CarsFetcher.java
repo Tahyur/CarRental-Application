@@ -15,7 +15,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.deeppatel.car_rerntal.Cars.CarEngine.carList;
 
 public class CarsFetcher
 {
@@ -32,13 +31,13 @@ public class CarsFetcher
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult())
                     {
-//                        Log.d("DB", document.toObject(Car.class).toString());
-                        //Create object of a car
+                      //Create object of a car
                         Car c = document.toObject(Car.class);
+                        c.setID(document.getId());
                         Log.d("CarObject", String.valueOf(task.getResult().size()));
-                        //Add to List of Cars
                         cars.add(c);
                     }
+                    //Notify Recycler View
                     carsAdapter.notifyDataSetChanged();
 
                 } else {

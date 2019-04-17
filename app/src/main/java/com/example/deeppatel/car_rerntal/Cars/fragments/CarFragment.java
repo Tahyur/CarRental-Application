@@ -30,7 +30,7 @@ public class CarFragment extends Fragment implements CarAdapter.OnAllCarItemClic
     RecyclerView allCarsList;
     CarEngine carsEngine;
     CarAdapter carsAdapter;
-    private final String CARSTR = "Car";
+    public final String CARSTR = "Car";
     FloatingActionButton addCar;
     Paint paint = new Paint();
 
