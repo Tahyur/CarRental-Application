@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.example.tayor.karz.Model.Car;
 import com.example.tayor.karz.R;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import io.realm.Realm;
@@ -64,8 +66,6 @@ public class CarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_car_list, container, false);
 
-
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -75,13 +75,12 @@ public class CarFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            try (Realm realm = Realm.getDefaultInstance()) {
-                Car.createDummyCarObject();
-                RealmQuery<Car> query = realm.where(Car.class);
-                RealmResults<Car> cars = query.findAll();
-                List<Car> carList = cars.subList(0, cars.size());
-                recyclerView.setAdapter(new MyCarRecyclerViewAdapter(carList, mListener));
-            }
+            CarsFetcher getCarsFromDB= new CarsFetcher();
+            CarAdapter carAdapter = new CarAdapter();
+            carAdapter.setmListener(mListener);
+            List<Car> list = getCarsFromDB.getAllCars(carAdapter);
+            carAdapter.setmCarList(list);
+            recyclerView.setAdapter(carAdapter);
         }
         return view;
     }

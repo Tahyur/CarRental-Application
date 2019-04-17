@@ -54,7 +54,7 @@ public class BookCarActivity extends BaseActivity {
         model.setText(car.getModel());
         color.setText(car.getColor());
         mileage.setText(String.valueOf(car.getMileage()));
-        Picasso.get().load(car.getResource()).centerCrop().fit().into(carImage);
+        Picasso.get().load(car.getImage()).centerCrop().fit().into(carImage);
 
         startDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +109,6 @@ public class BookCarActivity extends BaseActivity {
                 estimateLayout.setVisibility(View.INVISIBLE);
             }
         }
-
     }
 
     private void setTime() {
@@ -165,7 +164,6 @@ public class BookCarActivity extends BaseActivity {
     }
 
     private void validateDateAndTime(String startDate, String endDate) throws Exception {
-        // Toast.makeText(this, startDate, Toast.LENGTH_SHORT).show();
         try {
             Date sDate = new SimpleDateFormat("dd MMM, yyyy hh:mm a").parse(startDate);
             Date eDate = new SimpleDateFormat("dd MMM, yyyy hh:mm a").parse(endDate);

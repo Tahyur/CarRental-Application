@@ -222,7 +222,7 @@ public class MainActivity extends BaseActivity implements
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(MainActivity.this, "image uploaded", Toast.LENGTH_SHORT).show();
-                                        Log.d("taskResult",task.getResult().getPath());
+                                        Log.d("taskResult", String.valueOf(task.getResult()));
                                     }
                                 }
                             });
