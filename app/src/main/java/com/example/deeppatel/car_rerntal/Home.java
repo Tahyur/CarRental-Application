@@ -13,14 +13,14 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import com.example.deeppatel.car_rerntal.Cars.CarFragment;
-import com.example.deeppatel.car_rerntal.Customer.CustomerFragment;
+import com.example.deeppatel.car_rerntal.Cars.fragments.CarFragment;
+import com.example.deeppatel.car_rerntal.Customer.fragments.CustomerFragment;
 import com.example.deeppatel.car_rerntal.Customer.SearchCustomer;
 import com.example.deeppatel.car_rerntal.Renting_Process.AvailableCarsFragment;
+import com.example.deeppatel.car_rerntal.Renting_Process.DataEngine.Data_Available_Car;
 import com.example.deeppatel.car_rerntal.Renting_Process.DataEngine.TransactionInfo;
 import com.example.deeppatel.car_rerntal.Renting_Process.SearchForCustomer;
-import com.example.deeppatel.car_rerntal.Renting_Process.DataEngine.Data_Available_Car;
-import com.example.deeppatel.car_rerntal.Returning_Process.ReturnACarFragment;
+import com.example.deeppatel.car_rerntal.Returning_Process.fragments.ReturnACarFragment;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -10,7 +10,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.example.deeppatel.car_rerntal.Customer.Customer;
+import com.example.deeppatel.car_rerntal.Cars.models.Car;
 import com.example.deeppatel.car_rerntal.R;
 
 import java.util.ArrayList;
@@ -21,13 +21,32 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> im
 
     private OnCarItemClickedListener onCarItemClickedListener;
     private CarsEngine carsEngine;
-    List<Car> bookedCarsListFull;
+    List<com.example.deeppatel.car_rerntal.Cars.models.Car> bookedCarsListFull;
 
 
     public CarsAdapter(OnCarItemClickedListener onCarItemClickedListener, CarsEngine carsEngine) {
         this.onCarItemClickedListener = onCarItemClickedListener;
         this.carsEngine = carsEngine;
         this.bookedCarsListFull = carsEngine.getCarList();
+    }
+
+    public CarsAdapter() {
+    }
+
+    public OnCarItemClickedListener getOnCarItemClickedListener() {
+        return onCarItemClickedListener;
+    }
+
+    public void setOnCarItemClickedListener(OnCarItemClickedListener onCarItemClickedListener) {
+        this.onCarItemClickedListener = onCarItemClickedListener;
+    }
+
+    public CarsEngine getCarsEngine() {
+        return carsEngine;
+    }
+
+    public void setCarsEngine(CarsEngine carsEngine) {
+        this.carsEngine = carsEngine;
     }
 
     @NonNull
@@ -45,8 +64,19 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> im
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        final Car car = carsEngine.getCar(i);
-        viewHolder.car_name.setText(car.getCar_name());
+        final com.example.deeppatel.car_rerntal.Cars.models.Car car = carsEngine.getCar(i);
+
+        viewHolder.car_name.setText(car.getName().toUpperCase() + " - " + car.getModel().toUpperCase());
+
+        if(car.getStatus()){
+
+            viewHolder.booked.setText("AVAILABLE");
+
+        }else{
+
+            viewHolder.booked.setText("BOOKED");
+
+        }
 
         GradientDrawable bgShape = (GradientDrawable) viewHolder.circle_ele.getBackground();
         bgShape.setColor(car.getColor());
@@ -83,9 +113,9 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> im
 
                 String pattern = constraint.toString().toLowerCase().trim();
 
-                for (Car car : bookedCarsListFull) {
+                for (com.example.deeppatel.car_rerntal.Cars.models.Car car : bookedCarsListFull) {
 
-                    if (car.getCar_name().toLowerCase().contains(pattern)) {
+                    if (car.getName().toLowerCase().contains(pattern)) {
 
                         bookedCarsListNew.add(car);
 
@@ -123,7 +153,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> im
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-        TextView car_name, model_name, booked_by, booked_on, available_on;
+        TextView car_name, booked;
         View circle_ele;
         //Gotta declare image for the car once available
         OnCarItemClickedListener onCarItemClickedListener;
@@ -134,10 +164,7 @@ public class CarsAdapter extends RecyclerView.Adapter<CarsAdapter.ViewHolder> im
 
             car_name = itemView.findViewById(R.id.car_name);
             circle_ele = itemView.findViewById(R.id.circle_ele);
-//            model_name = itemView.findViewById(R.id.model);
-//            booked_by = itemView.findViewById(R.id.booked_by);
-//            booked_on = itemView.findViewById(R.id.booked_on);
-//            available_on = itemView.findViewById(R.id.available_from);
+            booked = itemView.findViewById(R.id.booked);
             this.onCarItemClickedListener = onCarItemClickedListener;
 
             itemView.setOnClickListener(this);

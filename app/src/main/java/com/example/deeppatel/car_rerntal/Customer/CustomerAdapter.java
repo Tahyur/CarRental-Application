@@ -3,7 +3,6 @@ package com.example.deeppatel.car_rerntal.Customer;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.example.deeppatel.car_rerntal.Customer.models.Customer;
 import com.example.deeppatel.car_rerntal.R;
 
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         final Customer customer = customerEngine.getcustomer(i);
-        viewHolder.customer_name.setText(customer.getCustomerName());
+        viewHolder.customer_name.setText(customer.getCustomerName().toUpperCase());
 
         GradientDrawable bgShape = (GradientDrawable) viewHolder.circle_ele.getBackground();
         bgShape.setColor(customer.getColor());

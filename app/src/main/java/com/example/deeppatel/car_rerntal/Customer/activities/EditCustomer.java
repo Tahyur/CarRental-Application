@@ -1,18 +1,17 @@
-package com.example.deeppatel.car_rerntal.Customer;
+package com.example.deeppatel.car_rerntal.Customer.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.example.deeppatel.car_rerntal.Customer.models.Customer;
 import com.example.deeppatel.car_rerntal.Home;
 import com.example.deeppatel.car_rerntal.R;
 import com.google.android.gms.tasks.OnFailureListener;

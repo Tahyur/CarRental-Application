@@ -1,4 +1,4 @@
-package com.example.deeppatel.car_rerntal.Returning_Process;
+package com.example.deeppatel.car_rerntal.Returning_Process.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +18,9 @@ import android.view.ViewGroup;
 import com.example.deeppatel.car_rerntal.Customer.SearchCustomer;
 import com.example.deeppatel.car_rerntal.Home;
 import com.example.deeppatel.car_rerntal.R;
+import com.example.deeppatel.car_rerntal.Returning_Process.CarsAdapter;
+import com.example.deeppatel.car_rerntal.Returning_Process.CarsEngine;
+import com.example.deeppatel.car_rerntal.Returning_Process.activities.ReturnDetails;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,9 +51,13 @@ public class ReturnACarFragment extends Fragment implements CarsAdapter.OnCarIte
 
         carsEngine = new CarsEngine();
 
-        carsEngine.addCars(10);
+        carsAdapter = new CarsAdapter();
 
-        carsAdapter = new CarsAdapter(this, carsEngine);
+        carsAdapter.setCarsEngine(carsEngine);
+
+        carsAdapter.setOnCarItemClickedListener(this);
+
+        carsEngine.addCars(carsAdapter);
 
         bookedCarsList.setAdapter(carsAdapter);
 

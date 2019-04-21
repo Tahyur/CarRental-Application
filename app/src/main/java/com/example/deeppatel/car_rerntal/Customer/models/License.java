@@ -1,4 +1,4 @@
-package com.example.deeppatel.car_rerntal.Customer.database;
+package com.example.deeppatel.car_rerntal.Customer.models;
 
 public class License {
 

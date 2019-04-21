@@ -11,15 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Customer.CustomerRegistration" android:label="@string/customer_register"></activity>
-        <activity android:name=".Customer.EditCustomer" android:label="@string/edit_customer" />
-        <activity android:name=".Cars.EditCar" />
+        <activity android:name=".Customer.activities.CustomerRegistration" android:label="@string/customer_register"></activity>
+        <activity android:name=".Customer.activities.EditCustomer" android:label="@string/edit_customer" />
         <activity android:name=".Renting_Process.Receipt" />
         <activity android:name=".Renting_Process.Payment" />
         <activity android:name=".Renting_Process.RentInfo" />
+        <activity android:name=".Cars.activities.AddNewCar"/>
+        <activity android:name=".Cars.activities.EditCar"/>
         <activity android:name=".Renting_Process.SearchForCustomer" />
         <activity
-            android:name=".Returning_Process.ReturnDetails"
+            android:name=".Returning_Process.activities.ReturnDetails"
             android:label="@string/return_automobile" />
         <activity
             android:name=".Home"

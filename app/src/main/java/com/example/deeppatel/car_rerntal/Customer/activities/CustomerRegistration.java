@@ -1,4 +1,4 @@
-package com.example.deeppatel.car_rerntal.Customer;
+package com.example.deeppatel.car_rerntal.Customer.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;

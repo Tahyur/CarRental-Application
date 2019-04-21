@@ -1,11 +1,8 @@
-package com.example.deeppatel.car_rerntal.Customer;
-
-import android.graphics.Color;
+package com.example.deeppatel.car_rerntal.Customer.models;
 
 import com.example.deeppatel.car_rerntal.Helpers.RandomColorGenerator;
 
 import java.io.Serializable;
-import java.util.Random;
 
 public class Customer implements Serializable {
 
