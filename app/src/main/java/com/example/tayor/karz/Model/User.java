@@ -11,12 +11,14 @@ public class User implements Parcelable {
     private String firstName;
     private String lastName;
     private String licenseId;
+    private String licenseNo;
 
     public User(Parcel in) {
         userId = in.readString();
         firstName = in.readString();
         lastName = in.readString();
         licenseId = in.readString();
+        licenseNo = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -68,6 +70,14 @@ public class User implements Parcelable {
         this.userId = userId;
     }
 
+    public String getLicenseNo() {
+        return licenseNo;
+    }
+
+    public void setLicenseNo(String licenseNo) {
+        this.licenseNo = licenseNo;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -79,5 +89,6 @@ public class User implements Parcelable {
         dest.writeString(firstName);
         dest.writeString(lastName);
         dest.writeString(licenseId);
+        dest.writeString(licenseNo);
     }
 }

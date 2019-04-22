@@ -25,7 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText email_et, password_et, confirm_password_et,first_name_et,last_name_et;
     Button next;

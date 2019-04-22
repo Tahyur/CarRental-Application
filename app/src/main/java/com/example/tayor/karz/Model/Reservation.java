@@ -1,27 +1,89 @@
 package com.example.tayor.karz.Model;
 
-public class Reservation {
-    private int id;
-    private int carId;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Reservation implements Parcelable {
+    private String id;
+    private String carId;
     private String userId;
     private String StartDateTime;
     private String EndDateTime;
-    private double deposit;
-    private double hours;
+    private String deposit;
+    private String billingOverview;
+    private String hours;
+    private String returned;
+    private Car car;
 
-    public int getId() {
+    public Reservation() {
+
+    }
+
+    protected Reservation(Parcel in) {
+        id = in.readString();
+        carId = in.readString();
+        userId = in.readString();
+        StartDateTime = in.readString();
+        EndDateTime = in.readString();
+        deposit = in.readString();
+        billingOverview = in.readString();
+        hours = in.readString();
+        returned = in.readString();
+        car = in.readParcelable(Car.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(carId);
+        dest.writeString(userId);
+        dest.writeString(StartDateTime);
+        dest.writeString(EndDateTime);
+        dest.writeString(deposit);
+        dest.writeString(billingOverview);
+        dest.writeString(hours);
+        dest.writeParcelable(car, flags);
+        dest.writeString(returned);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Reservation> CREATOR = new Creator<Reservation>() {
+        @Override
+        public Reservation createFromParcel(Parcel in) {
+            return new Reservation(in);
+        }
+
+        @Override
+        public Reservation[] newArray(int size) {
+            return new Reservation[size];
+        }
+    };
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(int carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 
@@ -49,19 +111,46 @@ public class Reservation {
         EndDateTime = endDateTime;
     }
 
-    public double getDeposit() {
+    public String getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(double deposit) {
+    public void setDeposit(String deposit) {
         this.deposit = deposit;
     }
 
-    public double getHours() {
+    public String getHours() {
         return hours;
     }
 
-    public void setHours(double hours) {
+    public void setHours(String hours) {
         this.hours = hours;
+    }
+
+    public String getBillingOverview() {
+        return billingOverview;
+    }
+
+    public void setBillingOverview(String billingOverview) {
+        this.billingOverview = billingOverview;
+    }
+
+    public String getReturned() {
+        return returned;
+    }
+
+    public void setReturned(String returned) {
+        this.returned = returned;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "StartDateTime='" + StartDateTime + '\'' +
+                ", EndDateTime='" + EndDateTime + '\'' +
+                ", deposit='" + deposit + '\'' +
+                ", hours='" + hours + '\'' +
+                ", car=" + car +
+                '}';
     }
 }

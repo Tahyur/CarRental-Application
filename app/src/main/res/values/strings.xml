@@ -17,7 +17,7 @@
     <string name="s_username">Username</string>
     <string name="s_password">Password</string>
     <string name="s_login">Login</string>
-    <string name="s_company_name">Express Rentals</string>
+    <string name="s_company_name">Karz</string>
     <string name="s_license_registration">License Registration</string>
     <string name="s_license_number">License Number</string>
     <string name="s_next">Next</string>
@@ -30,4 +30,5 @@
     <string name="s_sign_in">Sign in</string>
     <string name="s_first_name">First Name</string>
     <string name="s_last_name">Last Name</string>
+    <string name="s_settings">Settings</string>
 </resources>

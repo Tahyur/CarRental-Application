@@ -43,8 +43,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/text_margin"
                 android:orientation="vertical">
 
                 <TextView
@@ -63,16 +63,9 @@
                     android:layout_gravity="center|end"
                     android:orientation="horizontal">
 
-                    <!--<View-->
-                    <!--android:layout_width="10dp"-->
-                    <!--android:layout_height="10dp"-->
-                    <!--android:layout_margin="8dp"-->
-                    <!--android:background="#00FF00" />-->
                     <TextView
-                        android:id="@+id/return_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/dateTime"
+                        style="@style/text_label"
                         android:gravity="center_vertical"
                         android:text="Return date"/>
 

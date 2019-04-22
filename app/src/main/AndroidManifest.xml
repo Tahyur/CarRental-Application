@@ -20,20 +20,19 @@
         <activity android:name=".views.sign_in.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.car.BookCarActivity" />
-        <activity android:name=".views.payment.PaymentActivity" />
+        <activity android:name=".views.car.BookCarActivity" android:label="Book" />
+        <activity android:name=".views.payment.PaymentActivity" android:label="Payment" />
         <activity
             android:name=".views.profile.ProfileActivity"
-            android:label="@string/title_activity_profile" />
-        <activity android:name=".views.profile.EditProfileActivity" />
+            android:label="Profile" />
+        <activity android:name=".views.profile.EditProfileActivity" android:label="Edit"/>
         <activity android:name=".views.history.HistoryDetailsActivity" />
-        <activity android:name=".views.receipt.ReceiptActivity" />
-        <activity android:name=".views.sign_in.RegisterActivity" />
-        <activity android:name=".views.license.DriverLicenseActivity" >
+        <activity android:name=".views.receipt.ReceiptActivity" android:label="Receipt" />
+        <activity android:name=".views.sign_in.RegisterActivity" android:label="Sign In" />
+        <activity android:name=".views.license.DriverLicenseActivity" android:label="License" >
 
         </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

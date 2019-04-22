@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.Car;
+import com.example.tayor.karz.Model.Reservation;
 import com.example.tayor.karz.Model.User;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.car.BookCarActivity;
@@ -83,11 +84,11 @@ public class MainActivity extends BaseActivity implements
                         removeFragment();
                     showHistoryFragment();
                     return true;
-                case R.id.currently_booked:
-                    mTextMessage.setText(R.string.currently_booked);
-                    mOptionalMessage.setVisibility(View.INVISIBLE);
-                    removeFragment();
-                    return true;
+//                case R.id.currently_booked:
+//                    mTextMessage.setText(R.string.currently_booked);
+//                    mOptionalMessage.setVisibility(View.INVISIBLE);
+//                    removeFragment();
+//                    return true;
             }
             return false;
         }
@@ -165,9 +166,9 @@ public class MainActivity extends BaseActivity implements
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.upload:
-                uploadImage();
-                break;
+//            case R.id.upload:
+//                uploadImage();
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -269,7 +270,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void onHistoryListFragmentInteraction() {
-
+    public void onHistoryListFragmentInteraction(Reservation reservation) {
+        Toast.makeText(this, reservation.toString(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -27,17 +27,30 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
+                android:id="@+id/reservation_no_label"
+                style="@style/book_car_tv_style"
+                android:text="Reservation No.:"
+                app:layout_constraintTop_toBottomOf="@id/receipt_info_label" />
+            <TextView
+                android:id="@+id/reservation_no"
+                style="@style/book_car_tv_style"
+                android:hint="Reservation_no"
+                android:layout_marginStart="@dimen/text_margin"
+                app:layout_constraintLeft_toRightOf="@id/customer_name_label"
+                app:layout_constraintTop_toBottomOf="@id/receipt_info_label" />
+
+            <TextView
                 android:id="@+id/customer_name_label"
                 style="@style/book_car_tv_style"
-                android:text="Customer  "
-                app:layout_constraintTop_toBottomOf="@id/receipt_info_label" />
+                android:text="Customer:  "
+                app:layout_constraintTop_toBottomOf="@id/reservation_no_label" />
 
             <TextView
                 android:id="@+id/customer_name"
                 style="@style/book_car_tv_style"
-                android:hint="customer_name"
+                android:text="customer_name"
                 app:layout_constraintLeft_toRightOf="@id/customer_name_label"
-                app:layout_constraintTop_toBottomOf="@id/receipt_info_label" />
+                app:layout_constraintTop_toBottomOf="@id/reservation_no_label" />
 
             <TextView
                 android:id="@+id/car_name_label"

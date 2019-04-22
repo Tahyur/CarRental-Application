@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.Car;
+import com.example.tayor.karz.Model.Reservation;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.payment.PaymentActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
@@ -32,23 +35,29 @@ public class BookCarActivity extends BaseActivity {
     public int key;
     TextView carName, model, color, mileage;
     Button next;
-    TextView startDateTime, summary, billOverview;
+    TextView startDateTime,depositCharge, summary, billOverview;
     TextView endDateTime;
     ImageView carImage;
     String startDateTime_ = "", endDateTime_ = "";
+    String formattedStartDate,formattedEndDate;
     LinearLayout estimateLayout;
-
+    FirebaseUser user;
+    private FirebaseAuth mAuth;
+    private Car car;
+    private double hours;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_car);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initializeComponents();
 
-        Car car = getIntent().getParcelableExtra(getString(R.string.s_car_tag));
+        car = getIntent().getParcelableExtra(getString(R.string.s_car_tag));
 
         carName.setText(car.getName());
         model.setText(car.getModel());
@@ -159,8 +168,22 @@ public class BookCarActivity extends BaseActivity {
     }
 
     private void getPayment() {
-        Intent intent = new Intent(BookCarActivity.this, PaymentActivity.class);
-        startActivity(intent);
+        if(!(startDateTime_.isEmpty() && endDateTime_.isEmpty())) {
+            Reservation reservation = new Reservation();
+            reservation.setUserId(user.getUid());
+            reservation.setStartDateTime(formattedStartDate);
+            reservation.setEndDateTime(formattedEndDate);
+            reservation.setCarId(car.getId());
+            reservation.setDeposit(depositCharge.getText().toString());
+            reservation.setBillingOverview(billOverview.getText().toString());
+            reservation.setHours(String.valueOf(hours));
+
+            Intent intent = new Intent(BookCarActivity.this, PaymentActivity.class);
+            intent.putExtra("reservation", reservation);
+            startActivity(intent);
+        } else{
+            Toast.makeText(this, "Please select your renting period", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void validateDateAndTime(String startDate, String endDate) throws Exception {
@@ -187,6 +210,9 @@ public class BookCarActivity extends BaseActivity {
         String sTime = new SimpleDateFormat("hh:mm a").format(sDate);
         String eTime = new SimpleDateFormat("hh:mm a").format(eDate);
 
+        showFormattedStartDateTime(startDate,sTime);
+        showFormattedEndDateTime(endDate,eTime);
+
         estimateLayout.setVisibility(View.VISIBLE);
 
         DateTime sdt = new DateTime(sDate.getTime());
@@ -195,9 +221,18 @@ public class BookCarActivity extends BaseActivity {
         int days = Days.daysBetween(sdt, edt).getDays();
         summary.setText("You have hired " + carName.getText().toString() + " for " + days + " day(s) starting from " + startDate + " at " + sTime + " to " + endDate + " at " + eTime);
 
-        double hours = hoursDifference(eDate, sDate);
+        hours = hoursDifference(eDate, sDate);
         billOverview.setText("The estimate bill for the hire duration is $" + hours * 1.5);
     }
+
+    private void showFormattedStartDateTime(String startDate, String startTime){
+        formattedStartDate = startDate +" "+ startTime;
+    }
+
+    private void showFormattedEndDateTime(String endDate, String endTime){
+        formattedEndDate = endDate +" "+ endTime;
+    }
+
 
     private int hoursDifference(Date date1, Date date2) {
         final int MILLI_TO_HOUR = 1000 * 60 * 60;
@@ -217,5 +252,6 @@ public class BookCarActivity extends BaseActivity {
         estimateLayout = findViewById(R.id.estimate_layout);
         summary = findViewById(R.id.summary);
         billOverview = findViewById(R.id.billing_overview);
+        depositCharge = findViewById(R.id.fixed_deposit_charge);
     }
 }

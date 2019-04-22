@@ -9,8 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.tayor.karz.Model.Reservation;
 import com.example.tayor.karz.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 
 /**
@@ -20,7 +26,9 @@ import com.example.tayor.karz.R;
  * interface.
  */
 public class HistoryFragment extends Fragment {
-
+private FirebaseUser mUser;
+private FirebaseAuth mAuth;
+private TextView memo;
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -56,8 +64,10 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         View view = inflater.inflate(R.layout.history_item_list, container, false);
-
+       // memo = view.findViewById(R.id.memo);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -67,11 +77,20 @@ public class HistoryFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-        //    recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            ReservationList reservations= new ReservationList();
+            HistoryAdapter historyAdapter = new HistoryAdapter();
+            historyAdapter.setContext(getContext());
+            historyAdapter.setmListener(mListener);
+            List<Reservation> list = reservations.getAllReservations(historyAdapter,mUser);
+            historyAdapter.setmReservationList(list);
+            recyclerView.setAdapter(historyAdapter);
+
+//            if(!(list.isEmpty())){
+//                memo.setVisibility(View.INVISIBLE);
+//            }
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -102,6 +121,6 @@ public class HistoryFragment extends Fragment {
      */
     public interface OnHistoryListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onHistoryListFragmentInteraction();
+        void onHistoryListFragmentInteraction(Reservation reservation);
     }
 }

@@ -19,7 +19,7 @@
         android:title="@string/history" />
 
     <item
-        android:id="@+id/currently_booked"
+        android:id="@+id/settings"
         android:icon="@drawable/ic_unavailable_black_24dp"
-        android:title="@string/currently_booked" />
+        android:title="@string/s_settings" />
 </menu>

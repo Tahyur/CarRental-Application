@@ -23,9 +23,9 @@ public class Car extends RealmObject implements Parcelable {
     private String name;
     private String model;
     private String image;
-    private double mileage;
+    private String mileage;
     private String color;
-    private boolean status;
+    private String status;
 
     private static List<Car> carList = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class Car extends RealmObject implements Parcelable {
 
     }
 
-    public Car(String name, String model, String image, double mileage, String color) {
+    public Car(String name, String model, String image, String mileage, String color) {
         this.name = name;
         this.model = model;
         this.image = image;
@@ -47,9 +47,9 @@ public class Car extends RealmObject implements Parcelable {
         name = in.readString();
         model = in.readString();
         image = in.readString();
-        mileage = in.readDouble();
+        mileage = in.readString();
         color = in.readString();
-        status = in.readByte() != 0;
+        status = in.readString();
     }
 
     public static final Creator<Car> CREATOR = new Creator<Car>() {
@@ -156,11 +156,11 @@ public class Car extends RealmObject implements Parcelable {
         this.id = id;
     }
 
-    public double getMileage() {
+    public String getMileage() {
         return mileage;
     }
 
-    public void setMileage(double mileage) {
+    public void setMileage(String mileage) {
         this.mileage = mileage;
     }
 
@@ -172,11 +172,11 @@ public class Car extends RealmObject implements Parcelable {
         this.color = color;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -192,10 +192,9 @@ public class Car extends RealmObject implements Parcelable {
         dest.writeString(name);
         dest.writeString(model);
         dest.writeString(image);
-        dest.writeDouble(mileage);
+        dest.writeString(mileage);
         dest.writeString(color);
-        dest.writeByte((byte) (status ? 1 : 0));
+        dest.writeString(status);
     }
-
 
 }

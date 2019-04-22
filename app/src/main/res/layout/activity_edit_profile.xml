@@ -36,34 +36,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-
-
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/reg_username_et"
-            android:hint="@string/s_username"
+            android:id="@+id/pro_first_name"
+            android:hint="@string/s_first_name"
             style="@style/edit_text_style" />
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/reg_email_add_et"
+            android:id="@+id/pro_last_name"
+            android:hint="@string/s_last_name"
+            style="@style/edit_text_style" />
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/pro_email_add"
             android:hint="Email Address"
             style="@style/edit_text_style" />
 
-        <android.support.design.widget.TextInputLayout
-            style="@style/password_layout_style"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/ic_eye"
-            app:passwordToggleTint="@color/green">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/reg_password_et"
-                style="@style/edit_text_style.password" />
-
-        </android.support.design.widget.TextInputLayout>
 
 
     </LinearLayout>
     <Button
-        android:id="@+id/next"
+        android:id="@+id/updateProfile"
         android:text="@string/s_update"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/button_style" />

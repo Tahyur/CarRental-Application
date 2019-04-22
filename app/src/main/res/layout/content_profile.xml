@@ -25,14 +25,6 @@
                 android:src="@mipmap/ic_launcher_round"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal" />
-
-            <!--<TextView-->
-                <!--android:id="@+id/company_name"-->
-                <!--style="@style/Label_style"-->
-                <!--android:text="Client Name"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:layout_gravity="center_horizontal"/>-->
-
         </LinearLayout>
 
     </LinearLayout>
@@ -41,9 +33,7 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:background="@color/white"
-        android:layout_marginBottom="64dp"
         android:orientation="vertical">
-
         <TextView
            style="@style/Label_style"
            android:layout_gravity="center"
@@ -55,6 +45,11 @@
             tools:listitem="@layout/view_recent_bookings">
         </android.support.v7.widget.RecyclerView>
 
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:layout_gravity="end|bottom"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -153,7 +153,7 @@ public class SignInActivity extends AppCompatActivity {
                             }
                         } else {
                             Log.w("googleLoginError", "signInWithCredential:failure", task.getException());
-
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
@@ -199,6 +199,7 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     } else {
                         Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
             });
