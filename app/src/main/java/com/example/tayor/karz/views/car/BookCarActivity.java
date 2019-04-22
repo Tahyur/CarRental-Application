@@ -45,6 +45,7 @@ public class BookCarActivity extends BaseActivity {
     private FirebaseAuth mAuth;
     private Car car;
     private double hours;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +116,8 @@ public class BookCarActivity extends BaseActivity {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 startDateTime.setText("");
                 endDateTime.setText("");
+                startDateTime_ = "";
+                endDateTime_ = "";
                 estimateLayout.setVisibility(View.INVISIBLE);
             }
         }
