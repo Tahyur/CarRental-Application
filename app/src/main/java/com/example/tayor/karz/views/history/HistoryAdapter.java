@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.example.tayor.karz.Model.Reservation;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.history.HistoryFragment.OnHistoryListFragmentInteractionListener;
@@ -32,7 +33,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         this.context = context;
     }
 
-    public HistoryAdapter(){
+    public HistoryAdapter() {
     }
 
     @NonNull
@@ -44,22 +45,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final HistoryAdapter.ViewHolder viewHolder, int i) {
-        if(mReservationList.get(i).getReturned().equalsIgnoreCase("false"))
-            viewHolder.mCardView.setBackgroundColor(getContext().getResources().getColor(R.color.red));
+        if (mReservationList != null || !mReservationList.isEmpty()) {
+            if(mReservationList.get(i).getCar().getStatus() != null) {
+                if (mReservationList.get(i).getCar().getStatus().equalsIgnoreCase("false"))
+                    viewHolder.mCardView.setBackgroundColor(getContext().getResources().getColor(R.color.red));
 
-        viewHolder.reservation = mReservationList.get(i);
-        viewHolder.mCarInitial.setText(String.valueOf(mReservationList.get(i).getCar().getName().charAt(0)));
-        viewHolder.mCarName.setText(mReservationList.get(i).getCar().getName());
-        viewHolder.mModel.setText(mReservationList.get(i).getCar().getModel());
-        viewHolder.mDateTime.setText(mReservationList.get(i).getStartDateTime());
-        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(null != mListener){
-                    mListener.onHistoryListFragmentInteraction(viewHolder.reservation);
-                }
+                viewHolder.reservation = mReservationList.get(i);
+                viewHolder.mCarInitial.setText(String.valueOf(mReservationList.get(i).getCar().getName().charAt(0)));
+                viewHolder.mCarName.setText(mReservationList.get(i).getCar().getName());
+                viewHolder.mModel.setText(mReservationList.get(i).getCar().getModel());
+                viewHolder.mDateTime.setText(mReservationList.get(i).getStartDateTime());
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != mListener) {
+                            mListener.onHistoryListFragmentInteraction(viewHolder.reservation);
+                        }
+                    }
+                });
             }
-        });
+        }
     }
 
     @Override
@@ -75,11 +80,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         this.mListener = mListener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView mCarInitial,mCarName,mModel,mDateTime;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView mCarInitial, mCarName, mModel, mDateTime;
         private final CardView mCardView;
         private final View mView;
         private Reservation reservation;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mCarInitial = itemView.findViewById(R.id.car_initial);

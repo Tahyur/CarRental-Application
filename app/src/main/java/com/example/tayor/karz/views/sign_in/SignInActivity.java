@@ -196,6 +196,7 @@ public class SignInActivity extends AppCompatActivity {
                             Toast.makeText(SignInActivity.this, "You are logged in " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     } else {
                         Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();

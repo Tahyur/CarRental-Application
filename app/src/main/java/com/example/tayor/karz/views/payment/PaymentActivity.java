@@ -21,18 +21,24 @@ import com.example.tayor.karz.views.receipt.ReceiptActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import javax.annotation.Nullable;
 
 public class PaymentActivity extends BaseActivity {
     WebView webView;
     RadioButton terms;
     Button process;
+    private Reservation reservation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-
+        reservation = getIntent().getParcelableExtra("reservation");
         terms = findViewById(R.id.term_rb);
         webView = findViewById(R.id.pay_pal);
         process = findViewById(R.id.process);
@@ -44,14 +50,12 @@ public class PaymentActivity extends BaseActivity {
         webView.getSettings().setPluginState(WebSettings.PluginState.ON);
         webView.loadUrl("https://www.paypal.com/ca/home");
         webView.setWebViewClient(new WebViewClient());
-
         terms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayAlert();
             }
         });
-
         process.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,10 +64,9 @@ public class PaymentActivity extends BaseActivity {
         });
     }
     private void viewReceipt() {
-        Reservation reservation = getIntent().getParcelableExtra("reservation");
+        reservation = getIntent().getParcelableExtra("reservation");
         Log.d("ReservationEntity",reservation.toString());
         persistReservationToStorage(reservation);
-
     }
     private void persistReservationToStorage(final Reservation reservation) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -72,6 +75,7 @@ public class PaymentActivity extends BaseActivity {
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if(task.isSuccessful()){
                     reservation.setId(task.getResult().getId());
+                    updateCarStatus();
                     Intent intent = new Intent(PaymentActivity.this,ReceiptActivity.class);
                     intent.putExtra("reservation",reservation);
                     startActivity(intent);
@@ -79,6 +83,19 @@ public class PaymentActivity extends BaseActivity {
             }
         });
     }
+
+    private void updateCarStatus(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("cars").document(reservation.getCarId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if(documentSnapshot != null){
+                    documentSnapshot.getReference().update("status","false");
+                }
+            }
+        });
+    }
+
     private void displayAlert() {
         AlertDialog alertDialog = new AlertDialog.Builder(PaymentActivity.this).create();
         alertDialog.setTitle("Alert Dialog");

@@ -21,6 +21,12 @@ import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.payment.PaymentActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
@@ -30,6 +36,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import javax.annotation.Nullable;
 
 public class BookCarActivity extends BaseActivity {
     public int key;
@@ -180,7 +188,7 @@ public class BookCarActivity extends BaseActivity {
             reservation.setDeposit(depositCharge.getText().toString());
             reservation.setBillingOverview(billOverview.getText().toString());
             reservation.setHours(String.valueOf(hours));
-
+            reservation.setMileageReturned("");
             Intent intent = new Intent(BookCarActivity.this, PaymentActivity.class);
             intent.putExtra("reservation", reservation);
             startActivity(intent);
@@ -188,6 +196,7 @@ public class BookCarActivity extends BaseActivity {
             Toast.makeText(this, "Please select your renting period", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void validateDateAndTime(String startDate, String endDate) throws Exception {
         try {

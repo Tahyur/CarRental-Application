@@ -3,7 +3,7 @@ package com.example.tayor.karz.Model;
 import java.io.Serializable;
 
 public class License implements Serializable {
-    private String license,name,address,clazz,exp_date,province,zip;
+    private String license,address,clazz,exp_date,province,zip;
 
     public License() {
     }
@@ -14,14 +14,6 @@ public class License implements Serializable {
 
     public void setLicense(String license) {
         this.license = license;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {

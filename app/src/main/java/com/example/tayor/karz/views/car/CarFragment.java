@@ -9,17 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.tayor.karz.Model.Car;
 import com.example.tayor.karz.R;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 /**
  * A fragment representing a list of Items.
@@ -34,7 +29,7 @@ public class CarFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-
+    private  TextView empty;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -115,6 +110,6 @@ public class CarFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Car item);
+        void onListFragmentInteraction(Car item, int size);
     }
 }

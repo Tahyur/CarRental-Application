@@ -2,10 +2,6 @@ package com.example.tayor.karz.views;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,7 +22,6 @@ import android.widget.Toast;
 import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.Car;
 import com.example.tayor.karz.Model.Reservation;
-import com.example.tayor.karz.Model.User;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.car.BookCarActivity;
 import com.example.tayor.karz.views.car.CarFragment;
@@ -35,19 +30,13 @@ import com.example.tayor.karz.views.profile.ProfileActivity;
 import com.example.tayor.karz.views.sign_in.SignInActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -63,6 +52,8 @@ public class MainActivity extends BaseActivity implements
     private ProgressBar progressBar;
     private CardView cardView;
     private FrameLayout frameLayout;
+    //private TextView empty;
+
     private String documentPath;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -72,7 +63,7 @@ public class MainActivity extends BaseActivity implements
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.s_list_of_available_cars);
-                    mOptionalMessage.setVisibility(View.INVISIBLE);
+
                     if (getSupportFragmentManager().findFragmentByTag("carfrag") == null)
                         removeFragment();
                     showFragment();
@@ -124,7 +115,7 @@ public class MainActivity extends BaseActivity implements
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         mAuth = FirebaseAuth.getInstance();
-
+        mOptionalMessage = findViewById(R.id.empty);
         documentPath = getIntent().getStringExtra("documentpath");
         String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         Log.d("absolutePath", rootPath);
@@ -132,7 +123,7 @@ public class MainActivity extends BaseActivity implements
         Realm.setDefaultConfiguration(configuration);
 
         mTextMessage = findViewById(R.id.message);
-        mOptionalMessage = findViewById(R.id.optional_text);
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -174,11 +165,11 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void onListFragmentInteraction(Car car) {
-        Toast.makeText(this, car.getName(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, BookCarActivity.class);
-        intent.putExtra(getString(R.string.s_car_tag), car);
-        startActivity(intent);
+    public void onListFragmentInteraction(Car car, int size) {
+            Toast.makeText(this, car.getName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, BookCarActivity.class);
+            intent.putExtra(getString(R.string.s_car_tag), car);
+            startActivity(intent);
     }
 
     private void uploadImage(){
@@ -232,30 +223,6 @@ public class MainActivity extends BaseActivity implements
                                     }
                                 }
                             });
-//                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                                @Override
-//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                    Toast.makeText(MainActivity.this, "upload successful", Toast.LENGTH_SHORT).show();
-//
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.e("errorUploading", e.getMessage());
-//                                }
-//                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                                @Override
-//                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-//                                    double currentByte = (100.0 * taskSnapshot.getBytesTransferred())/ taskSnapshot.getTotalByteCount();
-//                                    int current = (int)currentByte;
-//                                    if(progressBar.getVisibility() == View.INVISIBLE && current != 100.0)
-//                                        progressBar.setVisibility(View.VISIBLE);
-//                                    progressBar.setProgress(current);
-//
-//                                    if(currentByte == 100.0)
-//                                        progressBar.setVisibility(View.INVISIBLE);
-//                                }
-//                            });
                         } catch (Exception ex) {
                             Log.d("errorUploading", ex.getMessage());
                         }

@@ -25,20 +25,58 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
             style="@style/Label_style"
             android:layout_gravity="center"
-            android:text="Current Booking" />
+            android:text="License Info" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/view_recent_bookings"></android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/lic_et"
+                    style="@style/edit_text_style"
+                    android:hint="@string/s_license_number" />
+
+                <EditText
+                    android:id="@+id/name_et"
+                    style="@style/edit_text_style"
+                    android:hint="Name" />
+
+                <EditText
+                    android:id="@+id/address_et"
+                    style="@style/edit_text_style"
+                    android:hint="Address" />
+
+                <EditText
+                    android:id="@+id/province_et"
+                    style="@style/edit_text_style"
+                    android:hint="Province" />
+
+                <EditText
+                    android:id="@+id/zip_et"
+                    style="@style/edit_text_style"
+                    android:hint="Zip code" />
+
+                <EditText
+                    android:id="@+id/class_et"
+                    style="@style/edit_text_style"
+                    android:hint="Class" />
+
+                <EditText
+                    android:id="@+id/expire_et"
+                    style="@style/edit_text_style"
+                    android:hint="Expiry date (yyyy-mm-dd)" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
 </LinearLayout>

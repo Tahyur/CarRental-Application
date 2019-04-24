@@ -12,7 +12,7 @@ public class Reservation implements Parcelable {
     private String deposit;
     private String billingOverview;
     private String hours;
-    private String returned;
+    private String mileageReturned;
     private Car car;
 
     public Reservation() {
@@ -28,7 +28,7 @@ public class Reservation implements Parcelable {
         deposit = in.readString();
         billingOverview = in.readString();
         hours = in.readString();
-        returned = in.readString();
+        mileageReturned = in.readString();
         car = in.readParcelable(Car.class.getClassLoader());
     }
 
@@ -42,8 +42,8 @@ public class Reservation implements Parcelable {
         dest.writeString(deposit);
         dest.writeString(billingOverview);
         dest.writeString(hours);
+        dest.writeString(mileageReturned);
         dest.writeParcelable(car, flags);
-        dest.writeString(returned);
     }
 
     @Override
@@ -135,12 +135,12 @@ public class Reservation implements Parcelable {
         this.billingOverview = billingOverview;
     }
 
-    public String getReturned() {
-        return returned;
+    public String getMileageReturned() {
+        return mileageReturned;
     }
 
-    public void setReturned(String returned) {
-        this.returned = returned;
+    public void setMileageReturned(String mileageReturned) {
+        this.mileageReturned = mileageReturned;
     }
 
     @Override

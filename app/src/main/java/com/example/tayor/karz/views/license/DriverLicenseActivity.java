@@ -86,7 +86,6 @@ public class DriverLicenseActivity extends BaseActivity {
 
     private void getLicenseInfo() {
         String licenseNo = license.getText().toString();
-        String name_ = name.getText().toString();
         String address_ = address.getText().toString();
         String zip_ = zip.getText().toString();
         String exp_date_ = exp_date.getText().toString();
@@ -95,7 +94,6 @@ public class DriverLicenseActivity extends BaseActivity {
 
         License license = new License();
         license.setLicense(licenseNo);
-        license.setName(name_);
         license.setAddress(address_);
         license.setZip(zip_);
         license.setExp_date(exp_date_);

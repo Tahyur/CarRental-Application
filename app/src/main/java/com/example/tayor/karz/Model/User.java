@@ -12,6 +12,7 @@ public class User implements Parcelable {
     private String lastName;
     private String licenseId;
     private String licenseNo;
+    private String imageUrl;
 
     public User(Parcel in) {
         userId = in.readString();
@@ -19,6 +20,7 @@ public class User implements Parcelable {
         lastName = in.readString();
         licenseId = in.readString();
         licenseNo = in.readString();
+        imageUrl = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -37,6 +39,14 @@ public class User implements Parcelable {
 
     }
 
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -90,5 +100,6 @@ public class User implements Parcelable {
         dest.writeString(lastName);
         dest.writeString(licenseId);
         dest.writeString(licenseNo);
+        dest.writeString(imageUrl);
     }
 }
