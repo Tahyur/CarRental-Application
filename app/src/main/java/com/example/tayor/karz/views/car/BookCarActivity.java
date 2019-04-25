@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,6 +21,8 @@ import com.example.tayor.karz.Model.Car;
 import com.example.tayor.karz.Model.Reservation;
 import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.payment.PaymentActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -27,6 +31,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
@@ -93,7 +98,7 @@ public class BookCarActivity extends BaseActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPayment();
+                getUseDocumentId();
             }
         });
 
@@ -178,23 +183,36 @@ public class BookCarActivity extends BaseActivity {
         return null;
     }
 
+    private void getUseDocumentId(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("user").whereEqualTo("userId",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isComplete()){
+                    String userId = task.getResult().getDocuments().get(0).getReference().getId();
+                    if(!(startDateTime_.isEmpty() && endDateTime_.isEmpty())) {
+                        Reservation reservation = new Reservation();
+                        reservation.setUserId(userId);
+                        reservation.setStartDateTime(formattedStartDate);
+                        reservation.setEndDateTime(formattedEndDate);
+                        reservation.setCarId(car.getId());
+                        reservation.setDeposit(depositCharge.getText().toString());
+                        reservation.setBillingOverview(billOverview.getText().toString());
+                        reservation.setHours(String.valueOf(hours));
+                        reservation.setMileageReturned("");
+                        Intent intent = new Intent(BookCarActivity.this, PaymentActivity.class);
+                        intent.putExtra("reservation", reservation);
+                        startActivity(intent);
+                    } else{
+                        Toast.makeText(getApplicationContext(), "Please select your renting period", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
     private void getPayment() {
-        if(!(startDateTime_.isEmpty() && endDateTime_.isEmpty())) {
-            Reservation reservation = new Reservation();
-            reservation.setUserId(user.getUid());
-            reservation.setStartDateTime(formattedStartDate);
-            reservation.setEndDateTime(formattedEndDate);
-            reservation.setCarId(car.getId());
-            reservation.setDeposit(depositCharge.getText().toString());
-            reservation.setBillingOverview(billOverview.getText().toString());
-            reservation.setHours(String.valueOf(hours));
-            reservation.setMileageReturned("");
-            Intent intent = new Intent(BookCarActivity.this, PaymentActivity.class);
-            intent.putExtra("reservation", reservation);
-            startActivity(intent);
-        } else{
-            Toast.makeText(this, "Please select your renting period", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
 
@@ -234,7 +252,7 @@ public class BookCarActivity extends BaseActivity {
         summary.setText("You have hired " + carName.getText().toString() + " for " + days + " day(s) starting from " + startDate + " at " + sTime + " to " + endDate + " at " + eTime);
 
         hours = hoursDifference(eDate, sDate);
-        billOverview.setText("The estimate bill for the hire duration is $" + hours * 1.5);
+        billOverview.setText(String.valueOf(hours * 1.5));
     }
 
     private void showFormattedStartDateTime(String startDate, String startTime){

@@ -61,7 +61,7 @@ public class DriverLicenseActivity extends BaseActivity {
         db = FirebaseFirestore.getInstance();
         path = getIntent().getStringExtra("userDocPath");
 
-        Log.d("userDocId",path);
+//        Log.d("userDocId",path);
         cameraPermission = new String[]
                 {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -231,12 +231,12 @@ public class DriverLicenseActivity extends BaseActivity {
                                 }
                             }
                         }
-                        Log.d("blockText", sb.toString());
+                        Log.d("blockText", ""+sb.toString());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Error", e.getMessage());
+                        Log.e("Error", ""+e.getMessage());
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

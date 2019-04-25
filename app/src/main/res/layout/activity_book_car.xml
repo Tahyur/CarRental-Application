@@ -152,7 +152,7 @@
                     <TextView
                         android:id="@+id/per_km_charge"
                         style="@style/book_car_tv_style"
-                        android:text="$1.50" />
+                        android:text="1.50" />
 
                 </LinearLayout>
 
@@ -164,12 +164,12 @@
                     <TextView
                         android:id="@+id/fixed_deposit_label"
                         style="@style/book_car_tv_style"
-                        android:text="Deposit : " />
+                        android:text="Deposit($) : " />
 
                     <TextView
                         android:id="@+id/fixed_deposit_charge"
                         style="@style/book_car_tv_style"
-                        android:text="$50" />
+                        android:text="50" />
 
                 </LinearLayout>
 

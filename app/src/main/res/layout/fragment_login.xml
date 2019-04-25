@@ -10,25 +10,26 @@
          android:src="@mipmap/ic_car"
          android:scaleType="centerCrop"/> -->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:contentDescription="@string/s_company_logo"
-        android:src="@mipmap/ic_launcher_round" />
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="top|center"-->
+        <!--android:layout_margin="@dimen/activity_vertical_margin"-->
+        <!--android:contentDescription="@string/s_company_logo"-->
+        <!--android:src="@mipmap/ic_launcher_round" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical">
 
         <TextView
             style="@style/Label_style"
+            android:fontFamily="@font/aguafina_script"
             android:text="@string/s_company_name"
-            android:textSize="30sp" />
+            android:textSize="64sp" />
 
     </LinearLayout>
 
@@ -42,6 +43,7 @@
         <TextView
             style="@style/Label_style"
             android:layout_gravity="center"
+            android:fontFamily="sans-serif"
             android:text="Sign in" />
 
         <android.support.design.widget.TextInputEditText
@@ -53,17 +55,13 @@
             style="@style/password_layout_style"
             app:passwordToggleDrawable="@drawable/ic_eye"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/white">
+            app:passwordToggleTint="@android:color/white">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/password_et"
                 style="@style/edit_text_style.password"
-
                 android:layout_margin="@dimen/activity_horizontal_margin" />
-
         </android.support.design.widget.TextInputLayout>
-
-
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -2,6 +2,7 @@ package com.example.tayor.karz.views.profile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,9 +80,9 @@ public class EditProfileActivity extends BaseActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(EditProfileActivity.this, "Email Address updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfileActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                 }  else {
-                    Toast.makeText(EditProfileActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("","");
                 }
             }
         });

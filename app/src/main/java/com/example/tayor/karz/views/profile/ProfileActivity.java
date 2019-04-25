@@ -66,35 +66,32 @@ public class ProfileActivity extends BaseActivity {
                 uploadImage();
             }
         });
-        getCurrentBooking();
+        getLicenseInformation();
     }
 
     private void getCurrentBooking() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("reservation").whereEqualTo("userId", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("user").whereEqualTo("userId", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isComplete()) {
-                    Reservation rv = new Reservation();
-                    Log.d("reservationSize", String.valueOf(task.getResult().getDocuments().size()));
+                    User rv = new User();
                     if (task.getResult().getDocuments().size() > 0) {
-                        rv.setCarId((String) task.getResult().getDocuments().get(0).get("carId"));
-                        rv.setEndDateTime((String) task.getResult().getDocuments().get(0).get("endDateTime"));
-                        rv.setUserId((String) task.getResult().getDocuments().get(0).get("userId"));
-                        getLicenseInformation(rv);
+                        rv.setLicenseId((String) task.getResult().getDocuments().get(0).get("licenseID"));
+                   //     getLicenseInformation(rv);
                     }
                 }
             }
         });
     }
 
-    private void getLicenseInformation(final Reservation reservation) {
+    private void getLicenseInformation() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("user").whereEqualTo("userId",reservation.getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("user").whereEqualTo("userId",user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isComplete()) {
-                    Log.d("reservationUser", "" + reservation.getUserId());
+//                    Log.d("reservationUser", "" + user.getUserId());
                     if (task.getResult() != null) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             if (document != null) {

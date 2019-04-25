@@ -86,11 +86,11 @@ public class PaymentActivity extends BaseActivity {
 
     private void updateCarStatus(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("cars").document(reservation.getCarId()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        db.collection("cars").document(reservation.getCarId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot != null){
-                    documentSnapshot.getReference().update("status","false");
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isComplete()){
+                    task.getResult().getReference().update("status","false");
                 }
             }
         });

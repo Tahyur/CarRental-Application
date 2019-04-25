@@ -87,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
         final String lastName = last_name_et.getText().toString();
         if (validatePassword()) {
             try {
+
                 mAuth.createUserWithEmailAndPassword(email_et.getText().toString(), password_et.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

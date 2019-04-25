@@ -60,22 +60,16 @@ private TextView customerTv,carTv,modelTv,rentDateTv,returnDateTv,billingTv,depo
     }
 
 
-
     private void getUserInformation(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("user")
-                .whereEqualTo("userId", reservation.getUserId())
+        db.collection("user").document(reservation.getUserId())
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                customerTv.setText(document.get("firstName")+ " "+document.get("lastName"));
-                                getCarInformation();
-                            }
-                        } else {
-                            Log.d("Error", "Error getting documents: ", task.getException());
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isComplete()){
+                            customerTv.setText(task.getResult().get("firstName")+" "+task.getResult().get("lastName"));
+                            getCarInformation();
                         }
                     }
                 });
