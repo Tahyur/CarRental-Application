@@ -5,8 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,12 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -41,8 +35,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.annotation.Nullable;
 
 public class BookCarActivity extends BaseActivity {
     public int key;
@@ -77,7 +69,7 @@ public class BookCarActivity extends BaseActivity {
         model.setText(car.getModel());
         color.setText(car.getColor());
         mileage.setText(String.valueOf(car.getMileage()));
-        Picasso.get().load(car.getImage()).centerCrop().fit().into(carImage);
+        Picasso.get().load(car.getImageUrl()).centerCrop().fit().into(carImage);
 
         startDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,13 +185,9 @@ public class BookCarActivity extends BaseActivity {
                     if(!(startDateTime_.isEmpty() && endDateTime_.isEmpty())) {
                         Reservation reservation = new Reservation();
                         reservation.setUserId(userId);
-                        reservation.setStartDateTime(formattedStartDate);
-                        reservation.setEndDateTime(formattedEndDate);
-                        reservation.setCarId(car.getId());
+                      //  reservation.setCarId(car.getId());
                         reservation.setDeposit(depositCharge.getText().toString());
-                        reservation.setBillingOverview(billOverview.getText().toString());
                         reservation.setHours(String.valueOf(hours));
-                        reservation.setMileageReturned("");
                         Intent intent = new Intent(BookCarActivity.this, PaymentActivity.class);
                         intent.putExtra("reservation", reservation);
                         startActivity(intent);

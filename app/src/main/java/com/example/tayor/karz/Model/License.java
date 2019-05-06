@@ -1,19 +1,55 @@
 package com.example.tayor.karz.Model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class License implements Serializable {
-    private String license,address,clazz,exp_date,province,zip;
+public class License implements Parcelable {
+    private String documentId;
+    private String licenseNo;
+    private String address;
+    private String clazz;
+    private String expDate;
+    private String province;
+    private String zip;
 
-    public License() {
+    protected License(Parcel in) {
+        documentId = in.readString();
+        licenseNo = in.readString();
+        address = in.readString();
+        clazz = in.readString();
+        expDate = in.readString();
+        province = in.readString();
+        zip = in.readString();
     }
 
-    public String getLicense() {
-        return license;
+    public static final Creator<License> CREATOR = new Creator<License>() {
+        @Override
+        public License createFromParcel(Parcel in) {
+            return new License(in);
+        }
+
+        @Override
+        public License[] newArray(int size) {
+            return new License[size];
+        }
+    };
+
+    public String getDocumentId() {
+        return documentId;
     }
 
-    public void setLicense(String license) {
-        this.license = license;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    public License() {}
+
+    public String getLicenseNo() {
+        return licenseNo;
+    }
+
+    public void setLicenseNo(String licenseNo) {
+        this.licenseNo = licenseNo;
     }
 
     public String getAddress() {
@@ -32,12 +68,12 @@ public class License implements Serializable {
         this.clazz = clazz;
     }
 
-    public String getExp_date() {
-        return exp_date;
+    public String getExpDate() {
+        return expDate;
     }
 
-    public void setExp_date(String exp_date) {
-        this.exp_date = exp_date;
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
     }
 
     public String getProvince() {
@@ -54,5 +90,21 @@ public class License implements Serializable {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(documentId);
+        dest.writeString(licenseNo);
+        dest.writeString(address);
+        dest.writeString(clazz);
+        dest.writeString(expDate);
+        dest.writeString(province);
+        dest.writeString(zip);
     }
 }

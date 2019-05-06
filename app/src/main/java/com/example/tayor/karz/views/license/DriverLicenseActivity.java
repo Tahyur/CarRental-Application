@@ -5,16 +5,14 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -93,10 +91,10 @@ public class DriverLicenseActivity extends BaseActivity {
         String clazz_ = clazz.getText().toString();
 
         License license = new License();
-        license.setLicense(licenseNo);
+        license.setLicenseNo(licenseNo);
         license.setAddress(address_);
         license.setZip(zip_);
-        license.setExp_date(exp_date_);
+        license.setExpDate(exp_date_);
         license.setProvince(province_);
         license.setClazz(clazz_);
         loadMainActivity(license);
@@ -193,6 +191,7 @@ public class DriverLicenseActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 CropImage.activity(data.getData()).setGuidelines(CropImageView.Guidelines.ON)
@@ -231,12 +230,12 @@ public class DriverLicenseActivity extends BaseActivity {
                                 }
                             }
                         }
-                        Log.d("blockText", ""+sb.toString());
+                        Log.d("blockText", "" + sb.toString());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("Error", ""+e.getMessage());
+                        Log.e("Error", "" + e.getMessage());
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

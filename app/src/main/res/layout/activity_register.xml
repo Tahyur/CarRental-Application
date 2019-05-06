@@ -57,41 +57,41 @@
             <!--android:hint="@string/s_username"-->
             <!--style="@style/edit_text_style" />-->
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/reg_email_add_et"
                 android:hint="Email Address"
                 style="@style/edit_text_style" />
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/first_name"
                 android:hint="First name"
                 style="@style/edit_text_style" />
 
-            <android.support.design.widget.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/last_name"
                 android:hint="Last Name"
                 style="@style/edit_text_style" />
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 style="@style/password_layout_style"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleDrawable="@drawable/ic_eye"
                 app:passwordToggleTint="@color/green">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_password_et"
                     style="@style/edit_text_style.password" />
 
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 style="@style/password_layout_style"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleDrawable="@drawable/ic_eye"
                 app:passwordToggleTint="@color/green">
 
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/reg_con_pass_et"
                     style="@style/edit_text_style.confirm_password" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>

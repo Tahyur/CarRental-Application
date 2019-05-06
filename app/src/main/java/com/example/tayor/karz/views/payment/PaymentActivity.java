@@ -3,8 +3,8 @@ package com.example.tayor.karz.views.payment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -12,7 +12,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.example.tayor.karz.BaseActivity;
 import com.example.tayor.karz.Model.Reservation;
@@ -22,11 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-
-import javax.annotation.Nullable;
 
 public class PaymentActivity extends BaseActivity {
     WebView webView;
@@ -74,7 +69,7 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if(task.isSuccessful()){
-                    reservation.setId(task.getResult().getId());
+                    reservation.setDocumentId(task.getResult().getId());
                     updateCarStatus();
                     Intent intent = new Intent(PaymentActivity.this,ReceiptActivity.class);
                     intent.putExtra("reservation",reservation);
@@ -86,7 +81,7 @@ public class PaymentActivity extends BaseActivity {
 
     private void updateCarStatus(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("cars").document(reservation.getCarId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("cars").document(reservation.getCar().getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isComplete()){

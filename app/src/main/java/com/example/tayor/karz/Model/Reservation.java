@@ -4,45 +4,31 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Reservation implements Parcelable {
-    private String id;
-    private String carId;
-    private String userId;
-    private String StartDateTime;
-    private String EndDateTime;
+    private String documentId;
+    private String userId; // user document Id
+    private ReservationPeriod reservationPeriod;
+    private String estimatedCharges;
     private String deposit;
-    private String billingOverview;
     private String hours;
-    private String mileageReturned;
     private Car car;
 
     public Reservation() {
-
     }
 
     protected Reservation(Parcel in) {
-        id = in.readString();
-        carId = in.readString();
+        documentId = in.readString();
         userId = in.readString();
-        StartDateTime = in.readString();
-        EndDateTime = in.readString();
         deposit = in.readString();
-        billingOverview = in.readString();
         hours = in.readString();
-        mileageReturned = in.readString();
         car = in.readParcelable(Car.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(carId);
+        dest.writeString(documentId);
         dest.writeString(userId);
-        dest.writeString(StartDateTime);
-        dest.writeString(EndDateTime);
         dest.writeString(deposit);
-        dest.writeString(billingOverview);
         dest.writeString(hours);
-        dest.writeString(mileageReturned);
         dest.writeParcelable(car, flags);
     }
 
@@ -71,20 +57,12 @@ public class Reservation implements Parcelable {
         this.car = car;
     }
 
-    public String getId() {
-        return id;
+    public String getDocumentId() {
+        return documentId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCarId() {
-        return carId;
-    }
-
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public String getUserId() {
@@ -93,22 +71,6 @@ public class Reservation implements Parcelable {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getStartDateTime() {
-        return StartDateTime;
-    }
-
-    public void setStartDateTime(String startDateTime) {
-        StartDateTime = startDateTime;
-    }
-
-    public String getEndDateTime() {
-        return EndDateTime;
-    }
-
-    public void setEndDateTime(String endDateTime) {
-        EndDateTime = endDateTime;
     }
 
     public String getDeposit() {
@@ -127,30 +89,19 @@ public class Reservation implements Parcelable {
         this.hours = hours;
     }
 
-    public String getBillingOverview() {
-        return billingOverview;
+    public ReservationPeriod getReservationPeriod() {
+        return reservationPeriod;
     }
 
-    public void setBillingOverview(String billingOverview) {
-        this.billingOverview = billingOverview;
+    public void setReservationPeriod(ReservationPeriod reservationPeriod) {
+        this.reservationPeriod = reservationPeriod;
     }
 
-    public String getMileageReturned() {
-        return mileageReturned;
+    public String getEstimatedCharges() {
+        return estimatedCharges;
     }
 
-    public void setMileageReturned(String mileageReturned) {
-        this.mileageReturned = mileageReturned;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "StartDateTime='" + StartDateTime + '\'' +
-                ", EndDateTime='" + EndDateTime + '\'' +
-                ", deposit='" + deposit + '\'' +
-                ", hours='" + hours + '\'' +
-                ", car=" + car +
-                '}';
+    public void setEstimatedCharges(String estimatedCharges) {
+        this.estimatedCharges = estimatedCharges;
     }
 }

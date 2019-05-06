@@ -2,38 +2,34 @@ package com.example.tayor.karz.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import java.util.Objects;
 
-import io.realm.RealmObject;
+public class Car implements Parcelable {
 
-public class Car extends RealmObject implements Parcelable {
-
-    private String id;
+    private String documentId;
     private String name;
     private String model;
-    private String image;
+    private String imageUrl;
     private String mileage;
     private String color;
     private String status;
 
-    public Car() {
-    }
+    public Car() {}
 
-    public Car(String name, String model, String image, String mileage, String color) {
+    public Car(String name, String model, String imageUrl, String mileage, String color) {
         this.name = name;
         this.model = model;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.mileage = mileage;
         this.color = color;
     }
 
     protected Car(Parcel in) {
-        id = in.readString();
+        documentId = in.readString();
         name = in.readString();
         model = in.readString();
-        image = in.readString();
+        imageUrl = in.readString();
         mileage = in.readString();
         color = in.readString();
         status = in.readString();
@@ -67,12 +63,12 @@ public class Car extends RealmObject implements Parcelable {
         this.model = model;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -90,20 +86,20 @@ public class Car extends RealmObject implements Parcelable {
         if (this == o) return true;
         if (!(o instanceof Car)) return false;
         Car car = (Car) o;
-        return Objects.equals(getId(), car.getId());
+        return Objects.equals(getDocumentId(), car.getDocumentId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getDocumentId());
     }
 
-    public String getId() {
-        return id;
+    public String getDocumentId() {
+        return documentId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDocumentId(String id) {
+        this.documentId = id;
     }
 
     public String getMileage() {
@@ -138,10 +134,10 @@ public class Car extends RealmObject implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeString(documentId);
         dest.writeString(name);
         dest.writeString(model);
-        dest.writeString(image);
+        dest.writeString(imageUrl);
         dest.writeString(mileage);
         dest.writeString(color);
         dest.writeString(status);

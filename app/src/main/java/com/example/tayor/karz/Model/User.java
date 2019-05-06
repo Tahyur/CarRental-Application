@@ -2,24 +2,23 @@ package com.example.tayor.karz.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Patterns;
-
-import java.util.regex.Pattern;
 
 public class User implements Parcelable {
+    private String documentId;
     private String userId;
     private String firstName;
     private String lastName;
-    private String licenseId;
-    private String licenseNo;
+    private License license;
     private String imageUrl;
 
-    public User(Parcel in) {
+    public User() {}
+
+    protected User(Parcel in) {
+        documentId = in.readString();
         userId = in.readString();
         firstName = in.readString();
         lastName = in.readString();
-        licenseId = in.readString();
-        licenseNo = in.readString();
+        license = in.readParcelable(License.class.getClassLoader());
         imageUrl = in.readString();
     }
 
@@ -35,17 +34,20 @@ public class User implements Parcelable {
         }
     };
 
-    public User() {
-
-    }
-
-
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public License getLicense() {
+        return license;
+    }
+
+    public void setLicense(License license) {
+        this.license = license;
     }
 
     public String getFirstName() {
@@ -64,28 +66,12 @@ public class User implements Parcelable {
         this.lastName = lastName;
     }
 
-    public String getLicenseId() {
-        return licenseId;
-    }
-
-    public void setLicenseId(String licenseId) {
-        this.licenseId = licenseId;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getLicenseNo() {
-        return licenseNo;
-    }
-
-    public void setLicenseNo(String licenseNo) {
-        this.licenseNo = licenseNo;
     }
 
     @Override
@@ -95,11 +81,11 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(documentId);
         dest.writeString(userId);
         dest.writeString(firstName);
         dest.writeString(lastName);
-        dest.writeString(licenseId);
-        dest.writeString(licenseNo);
+        dest.writeParcelable(license, flags);
         dest.writeString(imageUrl);
     }
 }

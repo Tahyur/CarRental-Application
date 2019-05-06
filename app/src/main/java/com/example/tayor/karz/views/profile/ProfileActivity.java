@@ -5,24 +5,21 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tayor.karz.BaseActivity;
-import com.example.tayor.karz.Model.Reservation;
 import com.example.tayor.karz.Model.User;
 import com.example.tayor.karz.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,7 +74,7 @@ public class ProfileActivity extends BaseActivity {
                 if (task.isComplete()) {
                     User rv = new User();
                     if (task.getResult().getDocuments().size() > 0) {
-                        rv.setLicenseId((String) task.getResult().getDocuments().get(0).get("licenseID"));
+                        rv.getLicense().setDocumentId((String) task.getResult().getDocuments().get(0).get("licenseID"));
                    //     getLicenseInformation(rv);
                     }
                 }
@@ -98,7 +95,7 @@ public class ProfileActivity extends BaseActivity {
                                 User user = new User();
                                 user.setFirstName((String) document.get("firstName"));
                                 user.setLastName((String) document.get("lastName"));
-                                user.setLicenseId((String) document.get("licenseId"));
+                               // user.setLicenseId((String) document.get("licenseId"));
                                 populateLicenseInfo(user);
                             }
                         }
@@ -110,7 +107,7 @@ public class ProfileActivity extends BaseActivity {
 
     private void populateLicenseInfo(final User user) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("license").document(user.getLicenseId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("license").document("").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isComplete()) {
@@ -119,7 +116,7 @@ public class ProfileActivity extends BaseActivity {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if(!hasFocus){
-                               updateInformation(v,user.getLicenseId());
+                          //     updateInformation(v,user.getLicenseId());
                             }
                         }
                     });
@@ -130,7 +127,7 @@ public class ProfileActivity extends BaseActivity {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if(!hasFocus){
-                                updateInformation(v,user.getLicenseId());
+                          //      updateInformation(v,user.getLicenseId());
                             }
                         }
                     });
@@ -139,7 +136,7 @@ public class ProfileActivity extends BaseActivity {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if(!hasFocus){
-                                updateInformation(v,user.getLicenseId());
+                         //       updateInformation(v,user.getLicenseId());
                             }
                         }
                     });
@@ -148,7 +145,7 @@ public class ProfileActivity extends BaseActivity {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if(!hasFocus){
-                                updateInformation(v,user.getLicenseId());
+                          //      updateInformation(v,user.getLicenseId());
                             }
                         }
                     });
@@ -157,7 +154,7 @@ public class ProfileActivity extends BaseActivity {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if(!hasFocus){
-                                updateInformation(v,user.getLicenseId());
+                          //      updateInformation(v,user.getLicenseId());
                             }
                         }
                     });
@@ -166,7 +163,7 @@ public class ProfileActivity extends BaseActivity {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if(!hasFocus){
-                                updateInformation(v,user.getLicenseId());
+                           //     updateInformation(v,user.getLicenseId());
                             }
                         }
                     });
@@ -276,6 +273,7 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == 1000) {
                 if (data != null) {

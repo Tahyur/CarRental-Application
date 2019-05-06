@@ -1,14 +1,13 @@
 package com.example.tayor.karz.views.history;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.example.tayor.karz.Model.Car;
 import com.example.tayor.karz.Model.Reservation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,37 +50,31 @@ public class ReservationList {
                         if (dc.getDocument().exists()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 Reservation r = new Reservation();
-                                r.setId(dc.getDocument().getId());
-                                r.setCarId((String) dc.getDocument().get("carId"));
+                                r.setDocumentId(dc.getDocument().getId());
+                             //   r.setCarId((String) dc.getDocument().get("carId"));
                                 r.setUserId((String) dc.getDocument().get("userId"));
                                 r.setHours(String.valueOf(dc.getDocument().get("hours")));
                                 r.setDeposit(String.valueOf(dc.getDocument().get("deposit")));
-                                r.setBillingOverview((String) dc.getDocument().get("billingOverview"));
-                                r.setStartDateTime((String) dc.getDocument().get("startDateTime"));
-                                r.setEndDateTime((String) dc.getDocument().get("endDateTime"));
-                                Log.d("carID", r.getCarId());
+                            //    Log.d("carID", r.getCarId());
                                 getCarInformation(r, historyAdapter);
                             }
 
                             if (dc.getType() == DocumentChange.Type.REMOVED) {
                                 Reservation r = new Reservation();
-                                r.setId(dc.getDocument().getId());
+                                r.setDocumentId(dc.getDocument().getId());
                                 reservations.remove(r);
                             }
 
                             if (dc.getType() == DocumentChange.Type.MODIFIED) {
                                 Reservation r = new Reservation();
-                                r.setId(dc.getDocument().getId());
+                                r.setDocumentId(dc.getDocument().getId());
                                 for (int i = 0; i < reservations.size(); i++) {
-                                    if (reservations.get(i).getId().equals(r.getId())) {
-                                        r.setId(dc.getDocument().getId());
-                                        r.setCarId((String) dc.getDocument().get("carId"));
+                                    if (reservations.get(i).getDocumentId().equals(r.getDocumentId())) {
+                                        r.setDocumentId(dc.getDocument().getId());
+                                     //   r.setCarId((String) dc.getDocument().get("carId"));
                                         r.setUserId((String) dc.getDocument().get("userId"));
                                         r.setHours((String) dc.getDocument().get("hours"));
                                         r.setDeposit((String) dc.getDocument().get("deposit"));
-                                        r.setBillingOverview((String) dc.getDocument().get("billingOverview"));
-                                        r.setStartDateTime((String) dc.getDocument().get("startDateTime"));
-                                        r.setEndDateTime((String) dc.getDocument().get("endDateTime"));
                                         Log.d("", "");
                                         break;
                                     }
@@ -96,7 +89,7 @@ public class ReservationList {
 
     private void getCarInformation(final Reservation r, final HistoryAdapter historyAdapter) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("cars").document(r.getCarId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("cars").document("").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {

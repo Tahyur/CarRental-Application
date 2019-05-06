@@ -2,8 +2,7 @@ package com.example.tayor.karz.views.receipt;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,11 +13,8 @@ import com.example.tayor.karz.R;
 import com.example.tayor.karz.views.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class ReceiptActivity extends BaseActivity {
 private Button ok_bn;
@@ -29,7 +25,6 @@ private TextView customerTv,carTv,modelTv,rentDateTv,returnDateTv,billingTv,depo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_receipt);
         initializeComponents();
-
         ok_bn = findViewById(R.id.ok);
         reservation = getIntent().getParcelableExtra("reservation");
         getUserInformation();
@@ -77,7 +72,7 @@ private TextView customerTv,carTv,modelTv,rentDateTv,returnDateTv,billingTv,depo
 
     private void getCarInformation() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("cars").document(reservation.getCarId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("cars").document(reservation.getCar().getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 carTv.setText((String)task.getResult().get("name"));
@@ -88,10 +83,7 @@ private TextView customerTv,carTv,modelTv,rentDateTv,returnDateTv,billingTv,depo
     }
 
     private void setData() {
-        reservationTv.setText(reservation.getId());
-        rentDateTv.setText(reservation.getStartDateTime());
-        returnDateTv.setText(reservation.getEndDateTime());
-        billingTv.setText(reservation.getBillingOverview());
+        reservationTv.setText(reservation.getDocumentId());
         depositTv.setText(reservation.getDeposit());
     }
 }

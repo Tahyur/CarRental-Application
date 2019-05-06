@@ -6,10 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.cardview.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,7 +63,6 @@ public class MainActivity extends BaseActivity implements
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.s_list_of_available_cars);
-
                     if (getSupportFragmentManager().findFragmentByTag("carfrag") == null)
                         removeFragment();
                     showFragment();
@@ -75,11 +74,11 @@ public class MainActivity extends BaseActivity implements
                         removeFragment();
                     showHistoryFragment();
                     return true;
-//                case R.id.currently_booked:
-//                    mTextMessage.setText(R.string.currently_booked);
-//                    mOptionalMessage.setVisibility(View.INVISIBLE);
-//                    removeFragment();
-//                    return true;
+                case R.id.settings:
+                    mTextMessage.setText(R.string.s_settings);
+                    mOptionalMessage.setVisibility(View.INVISIBLE);
+                    removeFragment();
+                    return true;
             }
             return false;
         }
@@ -101,6 +100,14 @@ public class MainActivity extends BaseActivity implements
     }
 
     void showHistoryFragment() {
+        HistoryFragment historyFragment = new HistoryFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, historyFragment, "hisfrag")
+                .commit();
+    }
+
+    void showSettingsFragment() {
         HistoryFragment historyFragment = new HistoryFragment();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -157,9 +164,6 @@ public class MainActivity extends BaseActivity implements
                 startActivity(intent);
                 finish();
                 break;
-//            case R.id.upload:
-//                uploadImage();
-//                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -193,9 +197,10 @@ public class MainActivity extends BaseActivity implements
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == 1000){
-                if(data != null) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 1000) {
+                if (data != null) {
                     Uri resultUri = data.getData();
                     if (resultUri != null) {
                         String path = getPathFromUri(resultUri);
@@ -203,21 +208,21 @@ public class MainActivity extends BaseActivity implements
                         try {
                             File file = new File(path);
                             final Uri fileUri = Uri.fromFile(file);
-                            Log.d("filename",file.getName());
+                            Log.d("filename", file.getName());
                             final StorageReference imagesRef = storageReference.child("images").child(file.getName());
                             final UploadTask uploadTask = imagesRef.putFile(fileUri);
 
                             Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                                 @Override
                                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                                    if(!task.isSuccessful())
+                                    if (!task.isSuccessful())
                                         throw task.getException();
-                                    return  imagesRef.getDownloadUrl();
+                                    return imagesRef.getDownloadUrl();
                                 }
                             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(MainActivity.this, "image uploaded", Toast.LENGTH_SHORT).show();
                                         Log.d("taskResult", String.valueOf(task.getResult()));
                                     }
@@ -226,10 +231,10 @@ public class MainActivity extends BaseActivity implements
                         } catch (Exception ex) {
                             Log.d("errorUploading", ex.getMessage());
                         }
-                    } else{
+                    } else {
                         Toast.makeText(this, "issues with the result URI", Toast.LENGTH_SHORT).show();
                     }
-                } else{
+                } else {
                     Toast.makeText(this, "intent data is null", Toast.LENGTH_SHORT).show();
                 }
             }
